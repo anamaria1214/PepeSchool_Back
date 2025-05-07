@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION fn_login(
     flag BOOLEAN;
 
 DECLARE
-flag BOOLEAN:=FALSE;
+    flag BOOLEAN:=FALSE;
     v_result estudiante%ROWTYPE;
     v_result docente%ROWTYPE;
 BEGIN
