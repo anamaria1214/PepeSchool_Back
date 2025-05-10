@@ -1,5 +1,6 @@
 package com.example.pepeschoolback;
 
+import com.example.pepeschoolback.config.OracleConnector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,5 +20,7 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+        OracleConnector connector = new OracleConnector();
+        connector.connect();
     }
 }
