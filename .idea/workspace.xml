@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a31f7f2-79f1-4453-a58b-c75be1e04a42" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioPregunta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/FormularioPregunta.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/functions/login.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/functions/login.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/LoginControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/LoginControlador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/login.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,9 +20,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="module-info" />
         <option value="FxmlFile" />
         <option value="Class" />
-        <option value="module-info" />
       </list>
     </option>
   </component>
@@ -66,7 +68,8 @@
       <option name="presentableId" value="Default" />
       <updated>1746636685544</updated>
       <workItem from="1746636686619" duration="3452000" />
-      <workItem from="1746644703527" duration="2639000" />
+      <workItem from="1746644703527" duration="2982000" />
+      <workItem from="1746816299269" duration="7825000" />
     </task>
     <servers />
   </component>
