@@ -15,7 +15,7 @@ public class OracleConnector {
             Properties info = new Properties();
             info.put("user", user);
             info.put("password", password);
-            info.put("internal_logon", "sysdba");
+            info.put("internal_logon", "C##Anauser");
 
             con = DriverManager.getConnection(url, info);
 

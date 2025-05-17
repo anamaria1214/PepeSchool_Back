@@ -9,12 +9,10 @@ public class UsuarioActivo {
     private Integer userId;
     private Map<String, Object> attributes;
 
-    // Constructor privado para evitar instanciación
     private UsuarioActivo() {
         attributes = new HashMap<>();
     }
 
-    // Método para obtener la instancia (patrón Singleton)
     public static UsuarioActivo getInstance() {
         if (instance == null) {
             synchronized (UsuarioActivo.class) {
@@ -66,8 +64,4 @@ public class UsuarioActivo {
         attributes.remove(key);
     }
 
-    // Método para limpiar la instancia (útil para tests)
-    public static void cleanSession() {
-        instance = null;
-    }
 }
