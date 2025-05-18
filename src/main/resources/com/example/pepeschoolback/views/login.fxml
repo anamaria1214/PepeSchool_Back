@@ -16,10 +16,8 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<StackPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <fx:define>
-      <ToggleGroup fx:id="tipoUsuarioGroup" />
-   </fx:define>
+<StackPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pepeschoolback.controladores.LoginControlador">
+
 
    <!-- Fondo con gradiente -->
    <Rectangle height="100" width="100">

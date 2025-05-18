@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pepeschoolback.controladores.DashboardMaestroController">
+    <top>
+        <HBox style="-fx-background-color: #2c3e50; -fx-padding: 15;" alignment="CENTER_LEFT" spacing="20">
+            <Label text="Dashboard - Maestro" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" />
+            <Label fx:id="lblNombreUsuario" style="-fx-text-fill: white; -fx-font-size: 16;" />
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Cerrar Sesión" onAction="#cerrarSesion" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox style="-fx-background-color: #34495e; -fx-pref-width: 200;" spacing="10">
+            <Button text="Mis Exámenes" onAction="#mostrarExamenes" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-pref-width: 180; -fx-pref-height: 40;"/>
+            <Button text="Crear Examen" onAction="#mostrarCrearExamen" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-pref-width: 180; -fx-pref-height: 40;"/>
+            <Button text="Crear Pregunta" onAction="#mostrarCrearPregunta" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-pref-width: 180; -fx-pref-height: 40;"/>
+            <Button text="Mis Grupos" onAction="#mostrarGrupos" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-pref-width: 180; -fx-pref-height: 40;"/>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contentArea">
+            <!-- Contenido dinámico se cargará aquí -->
+
+            <!-- Vista por defecto (Mis Exámenes) -->
+            <VBox fx:id="examenesView" spacing="15" style="-fx-padding: 20;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Mis Exámenes" style="-fx-font-weight: bold; -fx-font-size: 18;"/>
+                </HBox>
+
+                <TableView fx:id="tblExamenes" style="-fx-pref-height: 400;">
+                    <columns>
+                        <TableColumn text="ID" fx:id="colIdExamen" prefWidth="50"/>
+                        <TableColumn text="Nombre" fx:id="colNombreExamen" prefWidth="200"/>
+                        <TableColumn text="Materia" fx:id="colMateriaExamen" prefWidth="150"/>
+                        <TableColumn text="Fecha" fx:id="colFechaExamen" prefWidth="100"/>
+                        <TableColumn text="Preguntas" fx:id="colPreguntasExamen" prefWidth="80"/>
+                        <TableColumn text="Acciones" fx:id="colAccionesExamen" prefWidth="150"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Vista de Grupos (oculta inicialmente) -->
+            <VBox fx:id="gruposView" spacing="15" style="-fx-padding: 20;" visible="false">
+                <Label text="Mis Grupos" style="-fx-font-weight: bold; -fx-font-size: 18;"/>
+
+                <TableView fx:id="tblGrupos" style="-fx-pref-height: 400;">
+                    <columns>
+                        <TableColumn text="ID" fx:id="colIdGrupo" prefWidth="50"/>
+                        <TableColumn text="Nombre" fx:id="colNombreGrupo" prefWidth="200"/>
+                        <TableColumn text="Materia" fx:id="colMateriaGrupo" prefWidth="150"/>
+                        <TableColumn text="Estudiantes" fx:id="colEstudiantesGrupo" prefWidth="80"/>
+                        <TableColumn text="Acciones" fx:id="colAccionesGrupo" prefWidth="150"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </StackPane>
+    </center>
+
+    <bottom>
+        <HBox style="-fx-background-color: #ecf0f1; -fx-padding: 10;" alignment="CENTER">
+            <Label text="Sistema de Evaluación - Versión 1.0" style="-fx-text-fill: #7f8c8d;"/>
+        </HBox>
+    </bottom>
+</BorderPane>

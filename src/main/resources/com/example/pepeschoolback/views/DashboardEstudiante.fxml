@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pepeschoolback.controladores.DashboardEstudianteController">
+    <top>
+        <HBox style="-fx-background-color: #2c3e50; -fx-padding: 15;" alignment="CENTER_LEFT" spacing="20">
+            <Label text="Dashboard - Estudiante" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" />
+            <Label fx:id="lblNombreUsuario" style="-fx-text-fill: white; -fx-font-size: 16;" />
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Cerrar Sesión"  style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox style="-fx-background-color: #34495e; -fx-pref-width: 200;" spacing="10">
+            <Button text="Exámenes Pendientes"  style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-pref-width: 180; -fx-pref-height: 40;"/>
+            <Button text="Exámenes por Materia"  style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-pref-width: 180; -fx-pref-height: 40;"/>
+            <Button text="Exámenes por Grupo"  style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-pref-width: 180; -fx-pref-height: 40;"/>
+            <Button text="Historial de Exámenes" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-pref-width: 180; -fx-pref-height: 40;"/>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contentArea">
+            <!-- Contenido dinámico se cargará aquí -->
+
+            <!-- Vista por defecto (Exámenes Pendientes) -->
+            <VBox fx:id="examenesPendientesView" spacing="15" style="-fx-padding: 20;">
+                <Label text="Exámenes Pendientes" style="-fx-font-weight: bold; -fx-font-size: 18;"/>
+
+                <TableView fx:id="tblExamenesPendientes" style="-fx-pref-height: 400;">
+                    <columns>
+                        <TableColumn text="Materia" fx:id="colMateriaPendiente" prefWidth="150"/>
+                        <TableColumn text="Examen" fx:id="colNombrePendiente" prefWidth="200"/>
+                        <TableColumn text="Fecha Límite" fx:id="colFechaLimite" prefWidth="120"/>
+                        <TableColumn text="Duración (min)" fx:id="colDuracion" prefWidth="100"/>
+                        <TableColumn text="Acción" fx:id="colPresentar" prefWidth="120"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Vista de Exámenes por Materia (oculta inicialmente) -->
+            <VBox fx:id="examenesMateriaView" spacing="15" style="-fx-padding: 20;" visible="false">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Exámenes por Materia:" style="-fx-font-weight: bold; -fx-font-size: 18;"/>
+                    <ComboBox fx:id="cbMaterias" promptText="Seleccione una materia" style="-fx-pref-width: 200;"/>
+                </HBox>
+
+                <TableView fx:id="tblExamenesMateria" style="-fx-pref-height: 350;">
+                    <columns>
+                        <TableColumn text="Examen" fx:id="colNombreMateria" prefWidth="200"/>
+                        <TableColumn text="Fecha Límite" fx:id="colFechaLimiteMateria" prefWidth="120"/>
+                        <TableColumn text="Estado" fx:id="colEstadoMateria" prefWidth="100"/>
+                        <TableColumn text="Acción" fx:id="colPresentarMateria" prefWidth="120"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Vista de Exámenes por Grupo (oculta inicialmente) -->
+            <VBox fx:id="examenesGrupoView" spacing="15" style="-fx-padding: 20;" visible="false">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Exámenes por Grupo:" style="-fx-font-weight: bold; -fx-font-size: 18;"/>
+                    <ComboBox fx:id="cbGrupos" promptText="Seleccione un grupo" style="-fx-pref-width: 200;"/>
+                </HBox>
+
+                <TableView fx:id="tblExamenesGrupo" style="-fx-pref-height: 350;">
+                    <columns>
+                        <TableColumn text="Examen" fx:id="colNombreGrupo" prefWidth="200"/>
+                        <TableColumn text="Materia" fx:id="colMateriaGrupo" prefWidth="150"/>
+                        <TableColumn text="Fecha Límite" fx:id="colFechaLimiteGrupo" prefWidth="120"/>
+                        <TableColumn text="Estado" fx:id="colEstadoGrupo" prefWidth="100"/>
+                        <TableColumn text="Acción" fx:id="colPresentarGrupo" prefWidth="120"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Vista de Historial (oculta inicialmente) -->
+            <VBox fx:id="historialView" spacing="15" style="-fx-padding: 20;" visible="false">
+                <Label text="Historial de Exámenes Presentados" style="-fx-font-weight: bold; -fx-font-size: 18;"/>
+
+                <TableView fx:id="tblHistorial" style="-fx-pref-height: 400;">
+                    <columns>
+                        <TableColumn text="Examen" fx:id="colNombreHistorial" prefWidth="200"/>
+                        <TableColumn text="Materia" fx:id="colMateriaHistorial" prefWidth="150"/>
+                        <TableColumn text="Fecha Presentación" fx:id="colFechaHistorial" prefWidth="120"/>
+                        <TableColumn text="Calificación" fx:id="colCalificacion" prefWidth="100"/>
+                        <TableColumn text="Resultado" fx:id="colResultado" prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </StackPane>
+    </center>
+
+    <bottom>
+        <HBox style="-fx-background-color: #ecf0f1; -fx-padding: 10;" alignment="CENTER">
+            <Label text="Sistema de Evaluación - Versión 1.0" style="-fx-text-fill: #7f8c8d;"/>
+        </HBox>
+    </bottom>
+</BorderPane>
