@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a31f7f2-79f1-4453-a58b-c75be1e04a42" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/OracleConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/OracleConnector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/UsuarioActivo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/UsuarioActivo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioExamenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioExamenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioPregunta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioPregunta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/LoginControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/LoginControlador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/FormularioPregunta.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/FormularioPregunta.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,13 +29,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
@@ -117,6 +113,9 @@
       <workItem from="1747139446057" duration="518000" />
       <workItem from="1747333694265" duration="701000" />
       <workItem from="1746907100875" duration="7231000" />
+      <workItem from="1747592736603" duration="32000" />
+      <workItem from="1747615515887" duration="6000" />
+      <workItem from="1747615884678" duration="2189000" />
     </task>
     <servers />
   </component>

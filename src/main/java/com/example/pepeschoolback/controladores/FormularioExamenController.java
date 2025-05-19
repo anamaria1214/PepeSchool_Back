@@ -1,5 +1,6 @@
 package com.example.pepeschoolback.controladores;
 
+import com.example.pepeschoolback.config.OracleConnector;
 import com.example.pepeschoolback.modelo.documentos.Pregunta;
 import com.example.pepeschoolback.modelo.documentos.PreguntaExamen;
 import javafx.collections.FXCollections;
@@ -8,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class FormularioExamenController {
     @FXML private TextField txtNombre;
@@ -29,6 +31,12 @@ public class FormularioExamenController {
     // Listas de datos
     private ObservableList<Pregunta> preguntasDisponibles = FXCollections.observableArrayList();
     private ObservableList<PreguntaExamen> preguntasSeleccionadas = FXCollections.observableArrayList();
+
+    private final OracleConnector oracleConnector;
+
+    public FormularioExamenController(OracleConnector oracleConnector) {
+        this.oracleConnector = oracleConnector;
+    }
 
     @FXML
     public void initialize() {
@@ -116,7 +124,13 @@ public class FormularioExamenController {
         }
 
         try {
-            //Aquí debo implementar la lógica para guardar el examen
+            oracleConnector.realizarConsulta("INSERT INTO EXAMEN(ID, NOMBRE, DESCRIPCION, CANTPREGUNTAS," +
+                    " NOTAMINIMA, LIMITETIEMPO, FECHAPRESENTACION,MATERIA_ID, CATEGORIA_ID, TEMA_ID, " +
+                    "TEMA_MATERIA_ID) VALUES ("+generarId()+", "+txtNombre.getText()+","+txtDescripcion+","
+                    +Integer.parseInt(txtNotaMinima.getText())+","
+                    +Integer.parseInt(txtLimiteTiempo.getText())+","+dpFechaPresentacion.getValue()+","
+                    +cbMateria.getValue()+","+cbCategoria.getValue()+","+cbTema.getValue()+");");
+
             mostrarAlerta("Examen guardado exitosamente", Alert.AlertType.INFORMATION);
             limpiarFormulario();
         } catch (NumberFormatException e) {
@@ -154,4 +168,7 @@ public class FormularioExamenController {
         alert.showAndWait();
     }
 
+    private String generarId(){
+        return "";
+    }
 }

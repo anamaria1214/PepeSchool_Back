@@ -27,23 +27,23 @@ public class LoginControlador {
     @FXML
     private TextField nombreUsuario;
 
-    private final OracleConnector oracleConnector;
+    //private final OracleConnector oracleConnector;
 
-    public LoginControlador(OracleConnector oracleConnector) {
+    /*public LoginControlador(OracleConnector oracleConnector) {
         this.oracleConnector = oracleConnector;
-    }
+    }*/
 
 
     @FXML
     void ingresar(ActionEvent event) {
-        ResultSet resultado;
+        /*ResultSet resultado;
         if(esDocente.isSelected()){
             resultado= oracleConnector.realizarConsulta("Select * from Docente where nombreusuario="+
                     nombreUsuario.getText()+" AND contrasena="+contrasenia.getText());
         }else{
             resultado= oracleConnector.realizarConsulta("Select * from Docente where nombreusuario="+
                     nombreUsuario.getText()+" AND contrasena="+contrasenia.getText());
-        }
+        }*/
 
 
     }

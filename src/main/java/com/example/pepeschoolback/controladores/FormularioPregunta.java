@@ -58,6 +58,7 @@ public class FormularioPregunta {
 
     // Controles para emparejar conceptos
     @FXML private VBox emparejarContainer;
+    @FXML private VBox verdaderoFalsoContainer;
     @FXML private TableView<ObservableList<String>> emparejarTable;
     @FXML private TextField nuevoConceptoAField;
     @FXML private TextField nuevoConceptoBField;
@@ -82,7 +83,6 @@ public class FormularioPregunta {
     private void cambiarTipoPregunta() {
         String tipo = tipoPreguntaCombo.getValue();
 
-        // Ocultar todos los sub-contenedores primero
         opcionesMultiplesContainer.setVisible(false);
         opcionesMultiplesContainer.setManaged(false);
         ordenarContainer.setVisible(false);
@@ -95,12 +95,9 @@ public class FormularioPregunta {
         // Mostrar solo el contenedor necesario
         switch(tipo) {
             case "Selección múltiple":
-            case "Verdadero/Falso":
                 opcionesMultiplesContainer.setVisible(true);
                 opcionesMultiplesContainer.setManaged(true);
-                ayudaLabel.setText(tipo.equals("Verdadero/Falso") ?
-                        "Marque la opción correcta (Verdadero o Falso)." :
-                        "Para preguntas de selección múltiple, marque al menos una opción como correcta.");
+                ayudaLabel.setText("Para preguntas de selección múltiple, marque al menos una opción como correcta.");
                 break;
 
             case "Ordenar elementos":
@@ -121,13 +118,10 @@ public class FormularioPregunta {
                 ayudaLabel.setText("Use ______ para marcar los espacios en blanco. Luego especifique las respuestas correctas para cada espacio.");
                 break;
 
-            case "Respuesta corta":
-                respuestaCorta.setVisible(true);
-                respuestaCorta.setManaged(true);
-                ayudaLabel.setText("Agregue la respuesta única de la pregunta");
-                break;
-
-
+            case "Verdadero/Falso":
+                verdaderoFalsoContainer.setVisible(true);
+                verdaderoFalsoContainer.setManaged(true);
+                ayudaLabel.setText("Marque la opción correcta (Verdadero o Falso).");
             default:
                 break;
         }
@@ -137,19 +131,10 @@ public class FormularioPregunta {
                 ordenarContainer.isVisible() ||
                 emparejarContainer.isVisible() ||
                 completarContainer.isVisible() ||
-                respuestaCorta.isVisible();
+                verdaderoFalsoContainer.isVisible();
 
         opcionesContainer.setVisible(mostrarContainer);
         opcionesContainer.setManaged(mostrarContainer);
-    }
-
-    private void configurarOpcionesBasicas(String tipo) {
-        opcionesList.getChildren().clear();
-        if(tipo.equals("Verdadero/Falso")) {
-            CheckBox verdadero = new CheckBox("Verdadero");
-            CheckBox falso = new CheckBox("Falso");
-            opcionesList.getChildren().addAll(verdadero, falso);
-        }
     }
 
     @FXML

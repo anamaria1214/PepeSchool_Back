@@ -94,7 +94,6 @@
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Selección múltiple"/>
                         <String fx:value="Verdadero/Falso"/>
-                        <String fx:value="Respuesta corta"/>
                         <String fx:value="Ordenar elementos"/>
                         <String fx:value="Emparejar conceptos"/>
                         <String fx:value="Completar espacios"/>
@@ -116,9 +115,10 @@
                 </HBox>
             </VBox>
 
-            <VBox fx:id="respuestaCorta" visible="false" managed="false" spacing="10">
+            <VBox fx:id="verdaderoFalsoContainer" visible="false" managed="false" spacing="10">
                 <Label text="Respuesta" style="-fx-font-weight: bold;"/>
-                <TextField fx:id="respuestaField" promptText="Texto de la respuesta" style="-fx-pref-width: 300;"/>
+                <CheckBox fx:id="verdadero" text="Verdadero"/>
+                <CheckBox fx:id="falso" text="Falso"/>
             </VBox>
 
             <!-- Sección para Ordenar Elementos -->
