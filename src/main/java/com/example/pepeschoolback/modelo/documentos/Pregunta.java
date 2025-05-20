@@ -3,9 +3,9 @@ package com.example.pepeschoolback.modelo.documentos;
 public class Pregunta {
     private int id;
     private String enunciado;
-    private String tipo;
+    private int tipo;
 
-    public Pregunta(int id, String enunciado, String tipo) {
+    public Pregunta(int id, String enunciado, int tipo) {
         this.id = id;
         this.enunciado = enunciado;
         this.tipo = tipo;
@@ -27,11 +27,20 @@ public class Pregunta {
         this.enunciado = enunciado;
     }
 
-    public String getTipo() {
+    public int getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(int tipo) {
         this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "Pregunta{" +
+                "id=" + id +
+                ", enunciado='" + enunciado + '\'' +
+                ", tipo=" + tipo +
+                '}';
     }
 }

@@ -5,10 +5,23 @@ import java.util.Properties;
 
 public class OracleConnector {
 
+    private static OracleConnector instance;
+
     private String url = "jdbc:oracle:thin:@//localhost:1521/xe";
     private String user = "SYS";
     private String password = "oracle";
     private Connection con;
+
+    public static OracleConnector getInstance() {
+        if (instance == null) {
+            synchronized (OracleConnector.class) {
+                if (instance == null) {
+                    instance = new OracleConnector();
+                }
+            }
+        }
+        return instance;
+    }
 
     public void connect() {
         try {

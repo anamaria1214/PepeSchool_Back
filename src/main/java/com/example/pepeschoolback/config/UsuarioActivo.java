@@ -7,6 +7,7 @@ public class UsuarioActivo {
     private String username;
     private String userType;
     private Integer userId;
+    private Integer examenEstudianteActualId;
     private Map<String, Object> attributes;
 
     private UsuarioActivo() {
@@ -64,4 +65,11 @@ public class UsuarioActivo {
         attributes.remove(key);
     }
 
+    public Integer getExamenEstudianteActualId() {
+        return examenEstudianteActualId;
+    }
+
+    public void setExamenEstudianteActualId(Integer examenEstudianteActualId) {
+        this.examenEstudianteActualId = examenEstudianteActualId;
+    }
 }
