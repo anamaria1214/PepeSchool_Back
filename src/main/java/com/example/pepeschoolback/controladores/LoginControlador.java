@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 
 import java.sql.ResultSet;
 
+
 public class LoginControlador {
 
     @FXML
