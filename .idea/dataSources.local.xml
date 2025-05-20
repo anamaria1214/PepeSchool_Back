@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal" created-in="IU-232.9921.47">
+    <data-source name="@localhost" uuid="90e1dd5e-b4d0-4a95-8c74-c353b26c4eaf">
+      <database-info product="Oracle" version="Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production&#10;Version 21.3.0.0.0" jdbc-version="4.2" driver-name="Oracle JDBC driver" driver-version="21.1.0.0.0" dbms="ORACLE" exact-version="21.0.0.0.0" exact-driver-version="21.1">
+        <extra-name-characters>$#</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>C##AnaUser</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema">
+            <name qname="@" />
+            <name qname="PUBLIC" />
+            <name qname="SYS" />
+            <name qname="SYSTEM" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+      <introspection-level>3</introspection-level>
+      <load-sources>user_and_system_sources</load-sources>
+    </data-source>
+  </component>
+</project>

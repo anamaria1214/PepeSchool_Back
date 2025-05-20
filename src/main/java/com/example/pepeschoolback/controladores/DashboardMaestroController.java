@@ -1,13 +1,23 @@
 package com.example.pepeschoolback.controladores;
 
+import com.example.pepeschoolback.DAO.DocenteDAO;
+import com.example.pepeschoolback.DAO.ListasDAO;
+import com.example.pepeschoolback.config.OracleConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.sql.Connection;
 
 public class DashboardMaestroController {
     @FXML
@@ -64,6 +74,12 @@ public class DashboardMaestroController {
     @FXML
     private TextField txtBuscarExamen;
 
+    private Connection conexion;
+
+    public void setConexion(Connection conexion) {
+        this.conexion = conexion;
+    }
+
     @FXML
     void buscarExamenes(ActionEvent event) {
 
@@ -80,8 +96,21 @@ public class DashboardMaestroController {
     }
 
     @FXML
-    void mostrarCrearPregunta(ActionEvent event) {
+    void mostrarCrearPregunta(ActionEvent event) throws IOException {
+        OracleConnector oracleConnector = new OracleConnector();
+        oracleConnector.connect();
 
+        ListasDAO listasDAO = new ListasDAO(oracleConnector);
+        DocenteDAO docenteDAO= new DocenteDAO(oracleConnector);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pepeschoolback/views/FormularioPregunta.fxml"));
+        loader.setController(new FormularioPregunta(listasDAO, docenteDAO));
+        Parent root = loader.load();
+
+        Stage stage= new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle("Pepe School");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -94,4 +123,15 @@ public class DashboardMaestroController {
 
     }
 
+    public static void cambiarPantalla(String nombreFXML, Stage stage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(LoginControlador.class.getResource("/com/example/pepeschoolback/views/" + nombreFXML + ".fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

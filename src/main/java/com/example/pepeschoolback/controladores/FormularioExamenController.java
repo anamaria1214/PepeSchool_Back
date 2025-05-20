@@ -16,19 +16,16 @@ public class FormularioExamenController {
     @FXML private TextArea txtDescripcion;
     @FXML private TextField txtNotaMinima;
     @FXML private TextField txtLimiteTiempo;
-    @FXML
-    private DatePicker dpFechaPresentacion;
+    @FXML private DatePicker dpFechaPresentacion;
     @FXML private ComboBox<String> cbMateria;
     @FXML private ComboBox<String> cbCategoria;
     @FXML private ComboBox<String> cbTema;
 
-    // Sección de preguntas
     @FXML private ComboBox<String> cbTipoPregunta;
     @FXML private TextField txtPeso;
     @FXML private TableView<Pregunta> tblPreguntasDisponibles;
     @FXML private TableView<PreguntaExamen> tblPreguntasSeleccionadas;
 
-    // Listas de datos
     private ObservableList<Pregunta> preguntasDisponibles = FXCollections.observableArrayList();
     private ObservableList<PreguntaExamen> preguntasSeleccionadas = FXCollections.observableArrayList();
 
@@ -79,7 +76,6 @@ public class FormularioExamenController {
             return;
         }
 
-        // Simulación de búsqueda de preguntas
         preguntasDisponibles.clear();
         preguntasDisponibles.addAll(
                 new Pregunta(1, "¿Cuál es la capital de Francia?", "Selección Múltiple"),
@@ -117,7 +113,6 @@ public class FormularioExamenController {
 
     @FXML
     private void guardarExamen() {
-        // Validar campos
         if (txtNombre.getText().isEmpty() || preguntasSeleccionadas.isEmpty()) {
             mostrarAlerta("Debe completar el nombre del examen y agregar al menos una pregunta");
             return;
@@ -143,7 +138,6 @@ public class FormularioExamenController {
     @FXML
     private void cancelar() {
         limpiarFormulario();
-        // Cerrar ventana o volver atrás
     }
 
     private void limpiarFormulario() {

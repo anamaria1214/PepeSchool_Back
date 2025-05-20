@@ -1,13 +1,21 @@
 package com.example.pepeschoolback.controladores;
 
+import com.example.pepeschoolback.DAO.LoginDAO;
 import com.example.pepeschoolback.config.OracleConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.io.IOException;
+import java.sql.Connection;
 import java.sql.ResultSet;
 
 public class LoginControlador {
@@ -27,26 +35,47 @@ public class LoginControlador {
     @FXML
     private TextField nombreUsuario;
 
-    //private final OracleConnector oracleConnector;
+    private final LoginDAO loginDAO;
 
-    /*public LoginControlador(OracleConnector oracleConnector) {
-        this.oracleConnector = oracleConnector;
-    }*/
+    public LoginControlador(LoginDAO loginDAO) {
+        this.loginDAO = loginDAO;
+    }
 
 
     @FXML
     void ingresar(ActionEvent event) {
-        /*ResultSet resultado;
+        int tipo;
         if(esDocente.isSelected()){
-            resultado= oracleConnector.realizarConsulta("Select * from Docente where nombreusuario="+
-                    nombreUsuario.getText()+" AND contrasena="+contrasenia.getText());
-        }else{
-            resultado= oracleConnector.realizarConsulta("Select * from Docente where nombreusuario="+
-                    nombreUsuario.getText()+" AND contrasena="+contrasenia.getText());
-        }*/
-
+            tipo=2;
+        } else if (esEstudiante.isSelected()) {
+            tipo=1;
+        } else{
+            tipo=0;
+        }
+        int userId = loginDAO.login(nombreUsuario.getText(), contrasenia.getText(), tipo);
+        if (userId > 0 && tipo==1) {
+            System.out.println("Inicio de sesión exitoso. ID: " + userId);
+            cambiarPantalla("DashboardEstudiante", new Stage());
+        }else if(userId > 0 && tipo==2){
+            System.out.println("Inicio de sesión exitoso. ID: " + userId);
+            cambiarPantalla("DashboardMaestro", new Stage());
+        } else {
+            System.out.println("Credenciales invalidas.");
+            JOptionPane.showMessageDialog(null, "Credenciales inválidas");
+        }
 
     }
 
+    public static void cambiarPantalla(String nombreFXML, Stage stage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(LoginControlador.class.getResource("/com/example/pepeschoolback/views/" + nombreFXML + ".fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 

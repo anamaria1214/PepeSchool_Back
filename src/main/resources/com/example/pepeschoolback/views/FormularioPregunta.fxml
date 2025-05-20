@@ -1,184 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
 
-<?import java.lang.String?>
-<ScrollPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fitToWidth="true" style="-fx-background: white;" fx:controller="com.example.pepeschoolback.controladores.FormularioPregunta">
+<ScrollPane fitToWidth="true" style="-fx-background: white;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <fx:define>
-        <ToggleGroup fx:id="opcionesToggleGroup"/>
+        <ToggleGroup fx:id="opcionesToggleGroup" />
     </fx:define>
 
-    <VBox spacing="10" style="-fx-padding: 15;" alignment="TOP_CENTER" prefWidth="800">
+    <VBox alignment="TOP_CENTER" prefWidth="800" spacing="10" style="-fx-padding: 15;">
         <!-- Título compacto -->
-        <Label text="Crear Nueva Pregunta" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-padding: 0 0 10 0;"/>
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-padding: 0 0 10 0;" text="Crear Nueva Pregunta" />
 
         <!-- Formulario principal compacto -->
-        <GridPane hgap="10" vgap="10" alignment="TOP_LEFT" style="-fx-padding: 0 20;">
+        <GridPane alignment="TOP_LEFT" hgap="10" style="-fx-padding: 0 20;" vgap="10">
             <columnConstraints>
-                <ColumnConstraints hgrow="NEVER" minWidth="150" prefWidth="150"/>
-                <ColumnConstraints hgrow="ALWAYS" minWidth="400" prefWidth="400"/>
+                <ColumnConstraints hgrow="NEVER" minWidth="150" prefWidth="150" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="400" prefWidth="400" />
             </columnConstraints>
 
             <!-- Pregunta -->
-            <Label text="Pregunta:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-weight: bold;"/>
-            <TextArea fx:id="preguntaField" GridPane.columnIndex="1" GridPane.rowIndex="0" wrapText="true"
-                      style="-fx-min-height: 80; -fx-pref-height: 80; -fx-max-width: 400;"/>
+            <Label style="-fx-font-weight: bold;" text="Pregunta:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextArea fx:id="pregunta" style="-fx-min-height: 80; -fx-pref-height: 80; -fx-max-width: 400;" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
             <!-- Pregunta padre -->
-            <Label text="Pregunta padre:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-weight: bold;"/>
-            <ComboBox fx:id="preguntaPadreCombo" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-pref-width: 400; -fx-max-width: 400;"/>
+            <Label style="-fx-font-weight: bold;" text="Pregunta padre:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <ComboBox fx:id="preguntaPadreCombo" style="-fx-pref-width: 400; -fx-max-width: 400;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
             <!-- Configuraciones compactas -->
-            <Label text="Configuración:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-weight: bold;"/>
+            <Label style="-fx-font-weight: bold;" text="Configuración:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
             <HBox spacing="15" GridPane.columnIndex="1" GridPane.rowIndex="2">
                 <VBox spacing="5">
-                    <Label text="Visibilidad" style="-fx-font-size: 12px; -fx-text-fill: #555;"/>
+                    <Label style="-fx-font-size: 12px; -fx-text-fill: #555;" text="Visibilidad" />
                     <ComboBox fx:id="visibilidadCombo" style="-fx-pref-width: 180;">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Pública"/>
-                                <String fx:value="Privada"/>
-                            </FXCollections>
-                        </items>
                     </ComboBox>
                 </VBox>
                 <VBox spacing="5">
-                    <Label text="Estado" style="-fx-font-size: 12px; -fx-text-fill: #555;"/>
+                    <Label style="-fx-font-size: 12px; -fx-text-fill: #555;" text="Estado" />
                     <ComboBox fx:id="estadoCombo" style="-fx-pref-width: 180;">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Activa"/>
-                                <String fx:value="Inactiva"/>
-                            </FXCollections>
-                        </items>
                     </ComboBox>
                 </VBox>
             </HBox>
 
             <!-- Categorización compacta -->
-            <Label text="Categorización:" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-weight: bold;"/>
+            <Label style="-fx-font-weight: bold;" text="Categorización:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
             <HBox spacing="15" GridPane.columnIndex="1" GridPane.rowIndex="3">
                 <VBox spacing="5">
-                    <Label text="Tema" style="-fx-font-size: 12px; -fx-text-fill: #555;"/>
+                    <Label style="-fx-font-size: 12px; -fx-text-fill: #555;" text="Tema" />
                     <ComboBox fx:id="temaCombo" style="-fx-pref-width: 180;">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Matemáticas"/>
-                                <String fx:value="Ciencias"/>
-                            </FXCollections>
-                        </items>
                     </ComboBox>
                 </VBox>
                 <VBox spacing="5">
-                    <Label text="Dificultad" style="-fx-font-size: 12px; -fx-text-fill: #555;"/>
+                    <Label style="-fx-font-size: 12px; -fx-text-fill: #555;" text="Dificultad" />
                     <ComboBox fx:id="dificultadCombo" style="-fx-pref-width: 180;">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Fácil"/>
-                                <String fx:value="Media"/>
-                            </FXCollections>
-                        </items>
                     </ComboBox>
                 </VBox>
             </HBox>
 
             <!-- Tipo de pregunta -->
-            <Label text="Tipo de pregunta:" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-font-weight: bold;"/>
-            <ComboBox fx:id="tipoPreguntaCombo" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-pref-width: 400; -fx-max-width: 400;" onAction="#cambiarTipoPregunta">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Selección múltiple"/>
-                        <String fx:value="Verdadero/Falso"/>
-                        <String fx:value="Ordenar elementos"/>
-                        <String fx:value="Emparejar conceptos"/>
-                        <String fx:value="Completar espacios"/>
-                    </FXCollections>
-                </items>
+            <Label style="-fx-font-weight: bold;" text="Tipo de pregunta:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <ComboBox fx:id="tipoPreguntaCombo" onAction="#cambiarTipoPregunta" style="-fx-pref-width: 400; -fx-max-width: 400;" GridPane.columnIndex="1" GridPane.rowIndex="4">
             </ComboBox>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
         </GridPane>
 
         <!-- Contenedor dinámico para opciones -->
-        <VBox fx:id="opcionesContainer" spacing="10" style="-fx-padding: 15; -fx-border-color: #ddd; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-color: #f9f9f9;" alignment="TOP_LEFT" visible="false" managed="false">
+        <VBox fx:id="opcionesContainer" alignment="TOP_LEFT" managed="false" spacing="10" style="-fx-padding: 15; -fx-border-color: #ddd; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-color: #f9f9f9;" visible="false">
             <!-- Sección para Selección Múltiple/Verdadero-Falso -->
-            <VBox fx:id="opcionesMultiplesContainer" visible="false" managed="false" spacing="10">
-                <Label text="Opciones de respuesta:" style="-fx-font-weight: bold;"/>
-                <VBox fx:id="opcionesList" spacing="5"/>
-                <HBox spacing="10" alignment="CENTER_LEFT">
-                    <TextField fx:id="nuevaOpcionField" promptText="Texto de la opción" style="-fx-pref-width: 300;"/>
-                    <CheckBox fx:id="esCorrectaCheck" text="Correcta"/>
-                    <Button text="Agregar" onAction="#agregarOpcion" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+            <VBox fx:id="opcionesMultiplesContainer" managed="false" spacing="10" visible="false">
+                <Label style="-fx-font-weight: bold;" text="Opciones de respuesta:" />
+                <VBox fx:id="opcionesList" spacing="5" />
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <TextField fx:id="nuevaOpcionField" promptText="Texto de la opción" style="-fx-pref-width: 300;" />
+                    <CheckBox fx:id="esCorrectaCheck" text="Correcta" />
+                    <Button onAction="#agregarOpcion" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Agregar" />
                 </HBox>
             </VBox>
 
-            <VBox fx:id="verdaderoFalsoContainer" visible="false" managed="false" spacing="10">
-                <Label text="Respuesta" style="-fx-font-weight: bold;"/>
-                <CheckBox fx:id="verdadero" text="Verdadero"/>
-                <CheckBox fx:id="falso" text="Falso"/>
+            <VBox fx:id="verdaderoFalsoContainer" managed="false" spacing="10" visible="false">
+                <Label style="-fx-font-weight: bold;" text="Respuesta" />
+                <CheckBox fx:id="verdadero" text="Verdadero" />
+                <CheckBox fx:id="falso" text="Falso" />
             </VBox>
 
             <!-- Sección para Ordenar Elementos -->
-            <VBox fx:id="ordenarContainer" visible="false" managed="false" spacing="10">
-                <Label text="Elementos para ordenar:" style="-fx-font-weight: bold;"/>
+            <VBox fx:id="ordenarContainer" managed="false" spacing="10" visible="false">
+                <Label style="-fx-font-weight: bold;" text="Elementos para ordenar:" />
                 <ListView fx:id="ordenarList" style="-fx-pref-height: 150;">
                     <effect>
-                        <DropShadow radius="3" color="rgba(0,0,0,0.1)"/>
+                        <DropShadow color="rgba(0,0,0,0.1)" radius="3" />
                     </effect>
                 </ListView>
-                <HBox spacing="10" alignment="CENTER_LEFT">
-                    <TextField fx:id="nuevoElementoOrdenarField" promptText="Nuevo elemento" style="-fx-pref-width: 300;"/>
-                    <Button text="Agregar" onAction="#agregarElementoOrdenar" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <TextField fx:id="nuevoElementoOrdenarField" promptText="Nuevo elemento" style="-fx-pref-width: 300;" />
+                    <Button onAction="#agregarElementoOrdenar" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Agregar" />
                 </HBox>
             </VBox>
 
             <!-- Sección para Emparejar Conceptos -->
-            <VBox fx:id="emparejarContainer" visible="false" managed="false" spacing="10">
-                <Label text="Parejas de conceptos:" style="-fx-font-weight: bold;"/>
+            <VBox fx:id="emparejarContainer" managed="false" spacing="10" visible="false">
+                <Label style="-fx-font-weight: bold;" text="Parejas de conceptos:" />
                 <TableView fx:id="emparejarTable" style="-fx-pref-height: 150;">
                     <columns>
-                        <TableColumn text="Concepto A" prefWidth="200"/>
-                        <TableColumn text="Concepto B" prefWidth="200"/>
+                        <TableColumn prefWidth="200" text="Concepto A" />
+                        <TableColumn prefWidth="200" text="Concepto B" />
                     </columns>
                 </TableView>
-                <HBox spacing="10" alignment="CENTER_LEFT">
-                    <TextField fx:id="nuevoConceptoAField" promptText="Concepto A" style="-fx-pref-width: 200;"/>
-                    <TextField fx:id="nuevoConceptoBField" promptText="Concepto B" style="-fx-pref-width: 200;"/>
-                    <Button text="Agregar" onAction="#agregarPareja" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <TextField fx:id="nuevoConceptoAField" promptText="Concepto A" style="-fx-pref-width: 200;" />
+                    <TextField fx:id="nuevoConceptoBField" promptText="Concepto B" style="-fx-pref-width: 200;" />
+                    <Button onAction="#agregarPareja" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Agregar" />
                 </HBox>
             </VBox>
 
             <!-- Sección para Completar Espacios -->
-            <VBox fx:id="completarContainer" visible="false" managed="false" spacing="10">
-                <Label text="Texto con espacios en blanco:" style="-fx-font-weight: bold;"/>
-                <TextArea fx:id="textoCompletarField" promptText="Ejemplo: La capital de Francia es ______." wrapText="true" style="-fx-pref-height: 80;"/>
-                <Label text="Respuestas para cada espacio:" style="-fx-font-weight: bold;"/>
+            <VBox fx:id="completarContainer" managed="false" spacing="10" visible="false">
+                <Label style="-fx-font-weight: bold;" text="Texto con espacios en blanco:" />
+                <TextArea fx:id="textoCompletarField" promptText="Ejemplo: La capital de Francia es ______." style="-fx-pref-height: 80;" wrapText="true" />
+                <Label style="-fx-font-weight: bold;" text="Respuestas para cada espacio:" />
                 <TableView fx:id="respuestasCompletarTable" style="-fx-pref-height: 100;">
                     <columns>
-                        <TableColumn text="Espacio #" prefWidth="100"/>
-                        <TableColumn text="Respuestas (separar con |)" prefWidth="300"/>
+                        <TableColumn prefWidth="100" text="Espacio #" />
+                        <TableColumn prefWidth="300" text="Respuestas (separar con |)" />
                     </columns>
                 </TableView>
-                <HBox spacing="10" alignment="CENTER_LEFT">
-                    <TextField fx:id="numeroEspacioField" promptText="Núm." style="-fx-pref-width: 60;"/>
-                    <TextField fx:id="respuestasCompletarField" promptText="respuesta1|respuesta2" style="-fx-pref-width: 300;"/>
-                    <Button text="Agregar" onAction="#agregarRespuestaCompletar" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <TextField fx:id="numeroEspacioField" promptText="Núm." style="-fx-pref-width: 60;" />
+                    <TextField fx:id="respuestasCompletarField" promptText="respuesta1|respuesta2" style="-fx-pref-width: 300;" />
+                    <Button onAction="#agregarRespuestaCompletar" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Agregar" />
                 </HBox>
             </VBox>
 
             <!-- Mensaje de ayuda dinámico -->
-            <Label fx:id="ayudaLabel" style="-fx-font-size: 12px; -fx-text-fill: #666; -fx-wrap-text: true;"/>
+            <Label fx:id="ayudaLabel" style="-fx-font-size: 12px; -fx-text-fill: #666; -fx-wrap-text: true;" />
         </VBox>
 
         <!-- Botones de acción -->
-        <HBox spacing="20" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
-            <Button text="Guardar pregunta"
-                    style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-min-width: 150;"/>
-            <Button text="Cancelar"
-                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-min-width: 150;"/>
+        <HBox alignment="CENTER" spacing="20" style="-fx-padding: 10 0 0 0;">
+            <Button fx:id="agregarPregunta" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-min-width: 150;" text="Guardar pregunta" onAction="#agregarPregunta"/>
+            <Button style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-min-width: 150;" text="Cancelar" />
         </HBox>
     </VBox>
 </ScrollPane>

@@ -5,17 +5,20 @@ import java.util.Properties;
 
 public class OracleConnector {
 
-    private String url = "jdbc:oracle:thin:@//localhost:1521/xe";
-    private String user = "SYS";
-    private String password = "oracle";
+    private String url = "jdbc:oracle:thin:@//localhost:1521/XEPDB1";
+    private String user = "C##ANAUSER";
+    private String password = "12345";
     private Connection con;
 
+    public Connection getConnection() {
+        return con;
+    }
     public void connect() {
         try {
             Properties info = new Properties();
             info.put("user", user);
             info.put("password", password);
-            info.put("internal_logon", "C##Anauser");
+            //info.put("internal_logon", "SYSDBA");
 
             con = DriverManager.getConnection(url, info);
 
@@ -47,4 +50,20 @@ public class OracleConnector {
 
         return null;
     }
+
+    public int ejecutarUpdate(String sql, Object... parametros) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            for (int i = 0; i < parametros.length; i++) {
+                stmt.setObject(i + 1, parametros[i]);
+            }
+
+            return stmt.executeUpdate(); // devuelve número de filas afectadas
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 }
