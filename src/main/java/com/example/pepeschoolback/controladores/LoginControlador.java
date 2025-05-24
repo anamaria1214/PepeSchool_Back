@@ -2,6 +2,7 @@ package com.example.pepeschoolback.controladores;
 
 import com.example.pepeschoolback.DAO.LoginDAO;
 import com.example.pepeschoolback.config.OracleConnector;
+import com.example.pepeschoolback.config.UsuarioActivo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +38,8 @@ public class LoginControlador {
 
     private final LoginDAO loginDAO;
 
+    private UsuarioActivo usuario = UsuarioActivo.getInstance();
+
     public LoginControlador(LoginDAO loginDAO) {
         this.loginDAO = loginDAO;
     }
@@ -55,10 +58,13 @@ public class LoginControlador {
         int userId = loginDAO.login(nombreUsuario.getText(), contrasenia.getText(), tipo);
         if (userId > 0 && tipo==1) {
             System.out.println("Inicio de sesión exitoso. ID: " + userId);
+            usuario.login(nombreUsuario.getText(), tipo, userId);
+            System.out.println("Se guardó el usuario: "+usuario.getUserId());
             cambiarPantalla("DashboardEstudiante", new Stage());
         }else if(userId > 0 && tipo==2){
             System.out.println("Inicio de sesión exitoso. ID: " + userId);
             cambiarPantalla("DashboardMaestro", new Stage());
+            usuario.login(nombreUsuario.getText(), tipo, userId);
         } else {
             System.out.println("Credenciales invalidas.");
             JOptionPane.showMessageDialog(null, "Credenciales inválidas");

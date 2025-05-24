@@ -101,7 +101,9 @@ public class DashboardMaestroController {
         oracleConnector.connect();
 
         ListasDAO listasDAO = new ListasDAO(oracleConnector);
+
         DocenteDAO docenteDAO= new DocenteDAO(oracleConnector);
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pepeschoolback/views/FormularioPregunta.fxml"));
         loader.setController(new FormularioPregunta(listasDAO, docenteDAO));
         Parent root = loader.load();

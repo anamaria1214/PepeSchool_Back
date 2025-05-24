@@ -1,0 +1,151 @@
+Index: src/main/java/com/example/pepeschoolback/config/OracleConnector.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.pepeschoolback.config;\r\n\r\nimport java.sql.*;\r\nimport java.util.Properties;\r\n\r\npublic class OracleConnector {\r\n\r\n    private static OracleConnector instance;\r\n\r\n    private String url = \"jdbc:oracle:thin:@//localhost:1521/xe\";\r\n    private String user = \"SYS\";\r\n    private String password = \"oracle\";\r\n    private Connection con;\r\n\r\n    public static OracleConnector getInstance() {\r\n        if (instance == null) {\r\n            synchronized (OracleConnector.class) {\r\n                if (instance == null) {\r\n                    instance = new OracleConnector();\r\n                }\r\n            }\r\n        }\r\n        return instance;\r\n    }\r\n\r\n    public void connect() {\r\n        try {\r\n            Properties info = new Properties();\r\n            info.put(\"user\", user);\r\n            info.put(\"password\", password);\r\n            info.put(\"internal_logon\", \"C##Anauser\");\r\n\r\n            con = DriverManager.getConnection(url, info);\r\n\r\n            PreparedStatement stmt = con.prepareStatement(\"select * from visibilidad\");\r\n            ResultSet rs = stmt.executeQuery();\r\n\r\n            while (rs.next()) {\r\n                int id = rs.getInt(\"ID\");\r\n                String nombre = rs.getString(\"NOMBRE\");\r\n                String descripcion = rs.getString(\"DESCRIPCION\");\r\n                System.out.println(\"ID: \" + id + \", Nombre: \" + nombre + \", Descripcion: \" + descripcion);\r\n            }\r\n\r\n            // Cierra la conexión\r\n            //conn.close();\r\n\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public ResultSet realizarConsulta(String consulta) {\r\n        try {\r\n            PreparedStatement stmt = con.prepareStatement(consulta);\r\n            return stmt.executeQuery();\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        return null;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/pepeschoolback/config/OracleConnector.java b/src/main/java/com/example/pepeschoolback/config/OracleConnector.java
+--- a/src/main/java/com/example/pepeschoolback/config/OracleConnector.java	(revision 9950c1c20297f39cfb4393fadfb4551135456678)
++++ b/src/main/java/com/example/pepeschoolback/config/OracleConnector.java	(date 1747783960441)
+@@ -8,8 +8,8 @@
+     private static OracleConnector instance;
+ 
+     private String url = "jdbc:oracle:thin:@//localhost:1521/xe";
+-    private String user = "SYS";
+-    private String password = "oracle";
++    private String user = "C##ANAUSER";
++    private String password = "12345";
+     private Connection con;
+ 
+     public static OracleConnector getInstance() {
+Index: src/main/java/com/example/pepeschoolback/HelloApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.pepeschoolback;\r\n\r\nimport com.example.pepeschoolback.config.OracleConnector;\r\nimport javafx.application.Application;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Scene;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.IOException;\r\n\r\npublic class HelloApplication extends Application {\r\n    @Override\r\n    public void start(Stage stage) throws IOException {\r\n        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(\"views/FormularioPregunta.fxml\"));\r\n        Scene scene = new Scene(fxmlLoader.load());\r\n        stage.setTitle(\"Pepe School\");\r\n        stage.setScene(scene);\r\n        stage.show();\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        launch();\r\n        OracleConnector connector = new OracleConnector();\r\n        connector.connect();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/pepeschoolback/HelloApplication.java b/src/main/java/com/example/pepeschoolback/HelloApplication.java
+--- a/src/main/java/com/example/pepeschoolback/HelloApplication.java	(revision 9950c1c20297f39cfb4393fadfb4551135456678)
++++ b/src/main/java/com/example/pepeschoolback/HelloApplication.java	(date 1747783390182)
+@@ -11,7 +11,7 @@
+ public class HelloApplication extends Application {
+     @Override
+     public void start(Stage stage) throws IOException {
+-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("views/FormularioPregunta.fxml"));
++        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("views/responderExamen.fxml"));
+         Scene scene = new Scene(fxmlLoader.load());
+         stage.setTitle("Pepe School");
+         stage.setScene(scene);
+Index: src/main/java/com/example/pepeschoolback/controladores/FormularioExamenController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.pepeschoolback.controladores;\r\n\r\nimport com.example.pepeschoolback.config.OracleConnector;\r\nimport com.example.pepeschoolback.modelo.documentos.Pregunta;\r\nimport com.example.pepeschoolback.modelo.documentos.PreguntaExamen;\r\nimport javafx.collections.FXCollections;\r\nimport javafx.collections.ObservableList;\r\nimport javafx.fxml.FXML;\r\nimport javafx.scene.control.*;\r\n\r\nimport java.time.LocalDate;\r\nimport java.time.LocalDateTime;\r\n\r\npublic class FormularioExamenController {\r\n    @FXML private TextField txtNombre;\r\n    @FXML private TextArea txtDescripcion;\r\n    @FXML private TextField txtNotaMinima;\r\n    @FXML private TextField txtLimiteTiempo;\r\n    @FXML\r\n    private DatePicker dpFechaPresentacion;\r\n    @FXML private ComboBox<String> cbMateria;\r\n    @FXML private ComboBox<String> cbCategoria;\r\n    @FXML private ComboBox<String> cbTema;\r\n\r\n    // Sección de preguntas\r\n    @FXML private ComboBox<String> cbTipoPregunta;\r\n    @FXML private TextField txtPeso;\r\n    @FXML private TableView<Pregunta> tblPreguntasDisponibles;\r\n    @FXML private TableView<PreguntaExamen> tblPreguntasSeleccionadas;\r\n\r\n    // Listas de datos\r\n    private ObservableList<Pregunta> preguntasDisponibles = FXCollections.observableArrayList();\r\n    private ObservableList<PreguntaExamen> preguntasSeleccionadas = FXCollections.observableArrayList();\r\n\r\n    private final OracleConnector oracleConnector;\r\n\r\n    public FormularioExamenController(OracleConnector oracleConnector) {\r\n        this.oracleConnector = oracleConnector;\r\n    }\r\n\r\n    @FXML\r\n    public void initialize() {\r\n        // Configurar tablas\r\n        configurarTablaPreguntasDisponibles();\r\n        configurarTablaPreguntasSeleccionadas();\r\n\r\n        // Cargar comboboxes (simulado)\r\n        cargarComboboxes();\r\n\r\n        // Establecer valores por defecto\r\n        dpFechaPresentacion.setValue(LocalDate.now());\r\n        txtPeso.setText(\"1\");\r\n    }\r\n\r\n    private void configurarTablaPreguntasDisponibles() {\r\n        // Configuración de columnas y botones de acción\r\n        // ...\r\n    }\r\n\r\n    private void configurarTablaPreguntasSeleccionadas() {\r\n        // Configuración de columnas y botones para eliminar\r\n        // ...\r\n    }\r\n\r\n    private void cargarComboboxes() {\r\n        // Simulación de carga de datos\r\n        cbMateria.getItems().addAll(\"Matemáticas\", \"Ciencias\", \"Historia\");\r\n        cbCategoria.getItems().addAll(\"Examen Parcial\", \"Examen Final\", \"Quiz\");\r\n        cbTema.getItems().addAll(\"Álgebra\", \"Geometría\", \"Trigonometría\");\r\n    }\r\n\r\n    @FXML\r\n    private void buscarPreguntas() {\r\n        String tipoPregunta = cbTipoPregunta.getValue();\r\n        String tema = cbTema.getValue();\r\n\r\n        if (tipoPregunta == null || tema == null) {\r\n            mostrarAlerta(\"Debe seleccionar un tipo de pregunta y un tema\");\r\n            return;\r\n        }\r\n\r\n        // Simulación de búsqueda de preguntas\r\n        preguntasDisponibles.clear();\r\n        preguntasDisponibles.addAll(\r\n                new Pregunta(1, \"¿Cuál es la capital de Francia?\", \"Selección Múltiple\"),\r\n                new Pregunta(2, \"¿2 + 2 = 4?\", \"Verdadero/Falso\"),\r\n                new Pregunta(3, \"¿Quién escribió Don Quijote?\", \"Respuesta Corta\")\r\n        );\r\n    }\r\n\r\n    @FXML\r\n    private void agregarPregunta(Pregunta pregunta) {\r\n        try {\r\n            int peso = Integer.parseInt(txtPeso.getText());\r\n            if (peso <= 0) {\r\n                mostrarAlerta(\"El peso debe ser un número positivo\");\r\n                return;\r\n            }\r\n\r\n            PreguntaExamen preguntaSel = new PreguntaExamen(\r\n                    pregunta.getId(),\r\n                    pregunta.getEnunciado(),\r\n                    pregunta.getTipo(),\r\n                    peso\r\n            );\r\n\r\n            preguntasSeleccionadas.add(preguntaSel);\r\n        } catch (NumberFormatException e) {\r\n            mostrarAlerta(\"El peso debe ser un número válido\");\r\n        }\r\n    }\r\n\r\n    @FXML\r\n    private void eliminarPregunta(PreguntaExamen pregunta) {\r\n        preguntasSeleccionadas.remove(pregunta);\r\n    }\r\n\r\n    @FXML\r\n    private void guardarExamen() {\r\n        // Validar campos\r\n        if (txtNombre.getText().isEmpty() || preguntasSeleccionadas.isEmpty()) {\r\n            mostrarAlerta(\"Debe completar el nombre del examen y agregar al menos una pregunta\");\r\n            return;\r\n        }\r\n\r\n        try {\r\n            oracleConnector.realizarConsulta(\"INSERT INTO EXAMEN(ID, NOMBRE, DESCRIPCION, CANTPREGUNTAS,\" +\r\n                    \" NOTAMINIMA, LIMITETIEMPO, FECHAPRESENTACION,MATERIA_ID, CATEGORIA_ID, TEMA_ID, \" +\r\n                    \"TEMA_MATERIA_ID) VALUES (\"+generarId()+\", \"+txtNombre.getText()+\",\"+txtDescripcion+\",\"\r\n                    +Integer.parseInt(txtNotaMinima.getText())+\",\"\r\n                    +Integer.parseInt(txtLimiteTiempo.getText())+\",\"+dpFechaPresentacion.getValue()+\",\"\r\n                    +cbMateria.getValue()+\",\"+cbCategoria.getValue()+\",\"+cbTema.getValue()+\");\");\r\n\r\n            mostrarAlerta(\"Examen guardado exitosamente\", Alert.AlertType.INFORMATION);\r\n            limpiarFormulario();\r\n        } catch (NumberFormatException e) {\r\n            mostrarAlerta(\"Los campos numéricos deben contener valores válidos\");\r\n        } catch (Exception e) {\r\n            mostrarAlerta(\"Error al guardar el examen: \" + e.getMessage());\r\n        }\r\n    }\r\n\r\n    @FXML\r\n    private void cancelar() {\r\n        limpiarFormulario();\r\n        // Cerrar ventana o volver atrás\r\n    }\r\n\r\n    private void limpiarFormulario() {\r\n        txtNombre.clear();\r\n        txtDescripcion.clear();\r\n        txtNotaMinima.clear();\r\n        txtLimiteTiempo.clear();\r\n        dpFechaPresentacion.setValue(LocalDate.now());\r\n        preguntasDisponibles.clear();\r\n        preguntasSeleccionadas.clear();\r\n    }\r\n\r\n    private void mostrarAlerta(String mensaje) {\r\n        mostrarAlerta(mensaje, Alert.AlertType.ERROR);\r\n    }\r\n\r\n    private void mostrarAlerta(String mensaje, Alert.AlertType tipo) {\r\n        Alert alert = new Alert(tipo);\r\n        alert.setTitle(tipo == Alert.AlertType.ERROR ? \"Error\" : \"Información\");\r\n        alert.setHeaderText(null);\r\n        alert.setContentText(mensaje);\r\n        alert.showAndWait();\r\n    }\r\n\r\n    private String generarId(){\r\n        return \"\";\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/pepeschoolback/controladores/FormularioExamenController.java b/src/main/java/com/example/pepeschoolback/controladores/FormularioExamenController.java
+--- a/src/main/java/com/example/pepeschoolback/controladores/FormularioExamenController.java	(revision 9950c1c20297f39cfb4393fadfb4551135456678)
++++ b/src/main/java/com/example/pepeschoolback/controladores/FormularioExamenController.java	(date 1747783887881)
+@@ -82,9 +82,9 @@
+         // Simulación de búsqueda de preguntas
+         preguntasDisponibles.clear();
+         preguntasDisponibles.addAll(
+-                new Pregunta(1, "¿Cuál es la capital de Francia?", "Selección Múltiple"),
+-                new Pregunta(2, "¿2 + 2 = 4?", "Verdadero/Falso"),
+-                new Pregunta(3, "¿Quién escribió Don Quijote?", "Respuesta Corta")
++                new Pregunta(1, "¿Cuál es la capital de Francia?",  1),
++                new Pregunta(2, "¿2 + 2 = 4?", 3),
++                new Pregunta(3, "¿Quién escribió Don Quijote?", 6)
+         );
+     }
+ 
+Index: src/main/java/com/example/pepeschoolback/modelo/documentos/PreguntaExamen.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.pepeschoolback.modelo.documentos;\r\n\r\npublic class PreguntaExamen {\r\n    private int id;\r\n    private String enunciado;\r\n    private String tipo;\r\n    private int peso;\r\n\r\n    public PreguntaExamen(int id, String enunciado, String tipo, int peso) {\r\n        this.id = id;\r\n        this.enunciado = enunciado;\r\n        this.tipo = tipo;\r\n        this.peso = peso;\r\n    }\r\n\r\n    public int getId() {\r\n        return id;\r\n    }\r\n\r\n    public void setId(int id) {\r\n        this.id = id;\r\n    }\r\n\r\n    public String getEnunciado() {\r\n        return enunciado;\r\n    }\r\n\r\n    public void setEnunciado(String enunciado) {\r\n        this.enunciado = enunciado;\r\n    }\r\n\r\n    public String getTipo() {\r\n        return tipo;\r\n    }\r\n\r\n    public void setTipo(String tipo) {\r\n        this.tipo = tipo;\r\n    }\r\n\r\n    public int getPeso() {\r\n        return peso;\r\n    }\r\n\r\n    public void setPeso(int peso) {\r\n        this.peso = peso;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/pepeschoolback/modelo/documentos/PreguntaExamen.java b/src/main/java/com/example/pepeschoolback/modelo/documentos/PreguntaExamen.java
+--- a/src/main/java/com/example/pepeschoolback/modelo/documentos/PreguntaExamen.java	(revision 9950c1c20297f39cfb4393fadfb4551135456678)
++++ b/src/main/java/com/example/pepeschoolback/modelo/documentos/PreguntaExamen.java	(date 1747783887900)
+@@ -3,10 +3,10 @@
+ public class PreguntaExamen {
+     private int id;
+     private String enunciado;
+-    private String tipo;
++    private int tipo;
+     private int peso;
+ 
+-    public PreguntaExamen(int id, String enunciado, String tipo, int peso) {
++    public PreguntaExamen(int id, String enunciado, int tipo, int peso) {
+         this.id = id;
+         this.enunciado = enunciado;
+         this.tipo = tipo;
+@@ -29,11 +29,11 @@
+         this.enunciado = enunciado;
+     }
+ 
+-    public String getTipo() {
++    public int getTipo() {
+         return tipo;
+     }
+ 
+-    public void setTipo(String tipo) {
++    public void setTipo(int tipo) {
+         this.tipo = tipo;
+     }
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9a31f7f2-79f1-4453-a58b-c75be1e04a42\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/OracleConnector.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/OracleConnector.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/UsuarioActivo.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/UsuarioActivo.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/ResponderExamenController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/ResponderExamenController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/documentos/Pregunta.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/documentos/Pregunta.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/responderExamen.fxml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/responderExamen.fxml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"FxmlFile\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"module-info\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"ProjectErrors\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n    &quot;associatedIndex&quot;: 4\r\n    }</component>\r\n  <component name=\"ProjectId\" id=\"2wmB57FOi3PnwpiYS0TtgxPZsF6\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.HelloApplication.executor\": \"Run\",\r\n    \"Maven.pepeschoolback [clean].executor\": \"Run\",\r\n    \"Maven.pepeschoolback [install].executor\": \"Run\",\r\n    \"Maven.pepeschoolback [org.apache.maven.plugins:maven-clean-plugin:2.5:clean].executor\": \"Run\",\r\n    \"Maven.pepeschoolback [org.openjfx:javafx-maven-plugin:0.0.8:run].executor\": \"Run\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"git-widget-placeholder\": \"juancho\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/juanp/OneDrive/Documents/repos/PepeSchool_Back\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\ANAMARIA\\OneDrive\\Documentos\\GitHub\\pepeschoolback\\src\\main\\resources\\com\\example\\pepeschoolback\\views\" />\r\n      <recent name=\"C:\\Users\\ANAMARIA\\OneDrive\\Documentos\\GitHub\\pepeschoolback\\src\\main\\resources\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"HelloApplication\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.pepeschoolback.HelloApplication\" />\r\n      <module name=\"pepeschoolback\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.pepeschoolback.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.HelloApplication\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9a31f7f2-79f1-4453-a58b-c75be1e04a42\" name=\"Changes\" comment=\"\" />\r\n      <created>1746636685544</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1746636685544</updated>\r\n      <workItem from=\"1746636686619\" duration=\"3452000\" />\r\n      <workItem from=\"1746644703527\" duration=\"2639000\" />\r\n      <workItem from=\"1746907100875\" duration=\"4287000\" />\r\n      <workItem from=\"1747139446057\" duration=\"518000\" />\r\n      <workItem from=\"1747333694265\" duration=\"701000\" />\r\n      <workItem from=\"1746907100875\" duration=\"7231000\" />\r\n      <workItem from=\"1747592736603\" duration=\"32000\" />\r\n      <workItem from=\"1747615515887\" duration=\"6000\" />\r\n      <workItem from=\"1747615884678\" duration=\"2189000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 9950c1c20297f39cfb4393fadfb4551135456678)
++++ b/.idea/workspace.xml	(date 1747784068797)
+@@ -5,12 +5,12 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="9a31f7f2-79f1-4453-a58b-c75be1e04a42" name="Changes" comment="">
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_16_2025_12_39_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_16_2025_12_39_AM__Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/HelloApplication.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/OracleConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/OracleConnector.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/UsuarioActivo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/UsuarioActivo.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/ResponderExamenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/ResponderExamenController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/documentos/Pregunta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/documentos/Pregunta.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/responderExamen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/responderExamen.fxml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioExamenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioExamenController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/documentos/PreguntaExamen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/documentos/PreguntaExamen.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -27,6 +27,11 @@
+     </option>
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="main" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+   <component name="ProblemsViewState">
+@@ -62,6 +67,11 @@
+     "node.js.selected.package.tslint": "(autodetect)",
+     "nodejs_package_manager_path": "npm",
+     "vue.rearranger.settings.migration": "true"
++  },
++  "keyToStringList": {
++    "DatabaseDriversLRU": [
++      "oracle"
++    ]
+   }
+ }]]></component>
+   <component name="RecentsManager">

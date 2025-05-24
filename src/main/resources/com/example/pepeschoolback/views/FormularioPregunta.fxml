@@ -25,8 +25,7 @@
             <TextArea fx:id="pregunta" style="-fx-min-height: 80; -fx-pref-height: 80; -fx-max-width: 400;" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
             <!-- Pregunta padre -->
-            <Label style="-fx-font-weight: bold;" text="Pregunta padre:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <ComboBox fx:id="preguntaPadreCombo" style="-fx-pref-width: 400; -fx-max-width: 400;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="pesoPregunta" style="-fx-font-weight: bold;" text="Peso:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
             <!-- Configuraciones compactas -->
             <Label style="-fx-font-weight: bold;" text="Configuración:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
@@ -62,6 +61,7 @@
             <Label style="-fx-font-weight: bold;" text="Tipo de pregunta:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
             <ComboBox fx:id="tipoPreguntaCombo" onAction="#cambiarTipoPregunta" style="-fx-pref-width: 400; -fx-max-width: 400;" GridPane.columnIndex="1" GridPane.rowIndex="4">
             </ComboBox>
+         <TextField fx:id="pesoPregunta1" maxWidth="-Infinity" prefHeight="25.0" prefWidth="399.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          <rowConstraints>
             <RowConstraints />
             <RowConstraints />
@@ -109,8 +109,8 @@
                 <Label style="-fx-font-weight: bold;" text="Parejas de conceptos:" />
                 <TableView fx:id="emparejarTable" style="-fx-pref-height: 150;">
                     <columns>
-                        <TableColumn prefWidth="200" text="Concepto A" />
-                        <TableColumn prefWidth="200" text="Concepto B" />
+                        <TableColumn fx:id="conceptoAColumn" prefWidth="200" text="Concepto A" />
+                        <TableColumn fx:id="conceptoBColumn" prefWidth="200" text="Concepto B" />
                     </columns>
                 </TableView>
                 <HBox alignment="CENTER_LEFT" spacing="10">
@@ -122,20 +122,9 @@
 
             <!-- Sección para Completar Espacios -->
             <VBox fx:id="completarContainer" managed="false" spacing="10" visible="false">
-                <Label style="-fx-font-weight: bold;" text="Texto con espacios en blanco:" />
-                <TextArea fx:id="textoCompletarField" promptText="Ejemplo: La capital de Francia es ______." style="-fx-pref-height: 80;" wrapText="true" />
+                <Label style="-fx-font-weight: bold;" text="Respuestas de los espacios en blanco:" />
+                <TextArea fx:id="textoCompletarField" promptText="Ejemplo: La capital de Francia es ______. París, ..." style="-fx-pref-height: 80;" wrapText="true" />
                 <Label style="-fx-font-weight: bold;" text="Respuestas para cada espacio:" />
-                <TableView fx:id="respuestasCompletarTable" style="-fx-pref-height: 100;">
-                    <columns>
-                        <TableColumn prefWidth="100" text="Espacio #" />
-                        <TableColumn prefWidth="300" text="Respuestas (separar con |)" />
-                    </columns>
-                </TableView>
-                <HBox alignment="CENTER_LEFT" spacing="10">
-                    <TextField fx:id="numeroEspacioField" promptText="Núm." style="-fx-pref-width: 60;" />
-                    <TextField fx:id="respuestasCompletarField" promptText="respuesta1|respuesta2" style="-fx-pref-width: 300;" />
-                    <Button onAction="#agregarRespuestaCompletar" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Agregar" />
-                </HBox>
             </VBox>
 
             <!-- Mensaje de ayuda dinámico -->
@@ -144,7 +133,7 @@
 
         <!-- Botones de acción -->
         <HBox alignment="CENTER" spacing="20" style="-fx-padding: 10 0 0 0;">
-            <Button fx:id="agregarPregunta" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-min-width: 150;" text="Guardar pregunta" onAction="#agregarPregunta"/>
+            <Button fx:id="agregarPregunta" onAction="#agregarPregunta" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-min-width: 150;" text="Guardar pregunta" />
             <Button style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-min-width: 150;" text="Cancelar" />
         </HBox>
     </VBox>

@@ -2,66 +2,80 @@ package com.example.pepeschoolback.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 public class UsuarioActivo {
-    private static UsuarioActivo instance;
+    // Instancia única inicializada directamente
+    private static final UsuarioActivo INSTANCE = new UsuarioActivo();
+
     private String username;
-    private String userType;
+    private Integer userType;
     private Integer userId;
-    private Map<String, Object> attributes;
+    private final Map<String, Object> attributes = new HashMap<>();
 
+    // Constructor privado para evitar instanciación
     private UsuarioActivo() {
-        attributes = new HashMap<>();
+        logout(); // Inicializar en estado "no logueado"
     }
 
+    // Método estático para acceder a la instancia
     public static UsuarioActivo getInstance() {
-        if (instance == null) {
-            synchronized (UsuarioActivo.class) {
-                if (instance == null) {
-                    instance = new UsuarioActivo();
-                }
-            }
-        }
-        return instance;
+        return INSTANCE;
     }
 
-    public void login(String username, String userType, Integer userId) {
-        this.username = username;
-        this.userType = userType;
-        this.userId = userId;
+    // Métodos principales
+    public void login(String username, Integer userType, Integer userId) {
+        this.username = Objects.requireNonNull(username);
+        this.userType = Objects.requireNonNull(userType);
+        this.userId = Objects.requireNonNull(userId);
     }
 
     public void logout() {
         this.username = null;
         this.userType = null;
         this.userId = null;
-        this.attributes.clear();
+        attributes.clear();
     }
 
     public boolean isLoggedIn() {
         return username != null;
     }
 
+    // Getters con verificación de login
     public String getUsername() {
+        checkLogin();
         return username;
     }
 
-    public String getUserType() {
+    public Integer getUserType() {
+        checkLogin();
         return userType;
     }
 
     public Integer getUserId() {
+        checkLogin();
         return userId;
     }
+
+    // Métodos para atributos adicionales
     public void setAttribute(String key, Object value) {
-        attributes.put(key, value);
+        attributes.put(Objects.requireNonNull(key), value);
     }
 
     public Object getAttribute(String key) {
-        return attributes.get(key);
+        return attributes.get(Objects.requireNonNull(key));
     }
 
     public void removeAttribute(String key) {
-        attributes.remove(key);
+        attributes.remove(Objects.requireNonNull(key));
     }
 
+    // Método privado para verificar login
+    private void checkLogin() {
+        if (!isLoggedIn()) {
+            throw new IllegalStateException("Usuario no está logueado");
+        }
+    }
 }

@@ -5,28 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a31f7f2-79f1-4453-a58b-c75be1e04a42" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/DocenteDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/EstudianteDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/ListasDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/LoginDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/vo/Categoria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/vo/Dificultad.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/vo/Estado.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/vo/Materia.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/vo/OpcionRespuesta.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/vo/Tema.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/vo/TipoPregunta.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/vo/Visibilidad.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/vo/Pareja.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/90e1dd5e-b4d0-4a95-8c74-c353b26c4eaf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/90e1dd5e-b4d0-4a95-8c74-c353b26c4eaf.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/DocenteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/DocenteDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/LoginDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/LoginDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/OracleConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/OracleConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/UsuarioActivo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/config/UsuarioActivo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/DashboardMaestroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/DashboardMaestroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioExamenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioExamenController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioPregunta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioPregunta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/LoginControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/LoginControlador.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/FormularioPregunta.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/FormularioPregunta.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/login.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +32,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="juancho" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProblemsViewState">
@@ -57,34 +51,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "Maven.pepeschoolback [clean].executor": "Run",
-    "Maven.pepeschoolback [install].executor": "Run",
-    "Maven.pepeschoolback [org.apache.maven.plugins:maven-clean-plugin:2.5:clean].executor": "Run",
-    "Maven.pepeschoolback [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/juanp/OneDrive/Documents/repos/PepeSchool_Back",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.pepeschoolback [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.pepeschoolback [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.pepeschoolback [org.apache.maven.plugins:maven-clean-plugin:2.5:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.pepeschoolback [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/juanp/OneDrive/Documents/repos/PepeSchool_Back&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "oracle"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;oracle&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ANAMARIA\OneDrive\Documentos\GitHub\pepeschoolback\src\main\resources\com\example\pepeschoolback\views" />
@@ -141,6 +135,7 @@
       <workItem from="1747615884678" duration="3112000" />
       <workItem from="1747665043056" duration="2409000" />
       <workItem from="1747749400023" duration="30643000" />
+      <workItem from="1748089744884" duration="12861000" />
     </task>
     <servers />
   </component>

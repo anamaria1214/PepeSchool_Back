@@ -14,59 +14,69 @@ public class DocenteDAO {
         this.oracleConnector = oracleConnector;
     }
 
-    public int agregarPregunta(int id, String descripcion, String respuesta, int estado_id, int pregunta_id,
-                                int dificultad_id, int tema_id, int tipopregunta_id, int visibilidad_id) {
+    public int agregarPregunta(int id, String descripcion, String respuesta, int estado_id,
+                               int dificultad_id, int tema_id, int tipopregunta_id, int visibilidad_id,
+                               int pesoPregunta, int idDocente) {
+        Connection con = null;
+        CallableStatement stmt = null;
         int resultado = 0;
 
-        String call = "{ ? = call  crear_pregunta(?,?,?,?,?,?,?,?,?) }";
+        try {
+            con = oracleConnector.getConnection();
+            String call = "{ ? = call crear_pregunta(?,?,?,?,?,?,?,?,?,?) }";
+            stmt = con.prepareCall(call);
 
-        try (Connection con = oracleConnector.getConnection();
-             CallableStatement stmt = con.prepareCall(call)) {
             stmt.registerOutParameter(1, Types.INTEGER);
-            stmt.setInt(2,id);
+            stmt.setInt(2, id);
             stmt.setString(3, descripcion);
             stmt.setString(4, respuesta);
             stmt.setInt(5, estado_id);
-            stmt.setInt(6, pregunta_id);
-            stmt.setInt(7, dificultad_id);
-            stmt.setInt(8, tema_id);
-            stmt.setInt(9, tipopregunta_id);
-            stmt.setInt(10, visibilidad_id);
+            stmt.setInt(6, dificultad_id);
+            stmt.setInt(7, tema_id);
+            stmt.setInt(8, tipopregunta_id);
+            stmt.setInt(9, visibilidad_id);
+            stmt.setInt(10, pesoPregunta);
+            stmt.setInt(11, idDocente);
 
             stmt.execute();
-
-            resultado= stmt.getInt(1);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return resultado;
-    }
-
-    public int recuperarID(String nombre){
-        int resultado = 0;
-
-        String call = "{ ? = call devolver_Pregunta(?) }";
-
-        try (Connection con = oracleConnector.getConnection();
-             CallableStatement stmt = con.prepareCall(call)) {
-            stmt.registerOutParameter(1, Types.INTEGER);
-            stmt.setString(2, nombre);
-            stmt.execute();
-
             resultado = stmt.getInt(1);
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return resultado;
         }
-
         return resultado;
     }
 
+    public void crearOpcion(int id, String descripcion, String respuestaCorrecta, int preguntaId) throws Exception {
 
-    public void agregarOpciones(String descrip, String respuestacorrecta, int pregunta_id){
-        String sql="INSERT INTO OPCION(DESCRIPCION, RESPUESTACORRECTA, PREGUNTA_ID) VALUES ('"+descrip+"','"+respuestacorrecta+"',"+pregunta_id+")";
-        oracleConnector.realizarConsulta(sql);
+        Connection con = null;
+        CallableStatement stmt = null;
+
+        try {
+            con = oracleConnector.getConnection();
+            String call = "{ call crear_opcion(?, ?, ?, ?) }";
+            stmt = con.prepareCall(call);
+
+            stmt.setInt(1, id);
+            stmt.setString(2, descripcion);
+            stmt.setString(3, respuestaCorrecta);
+            stmt.setInt(4, preguntaId);
+
+            stmt.execute();
+
+        } catch (SQLException e) {
+            // Manejo específico de errores basado en códigos de error
+            if (e.getErrorCode() == 20001) {
+                throw new Exception("Error: Valor duplicado en índice único o clave primaria.", e);
+            } else if (e.getErrorCode() == 20002) {
+                throw new Exception("Error: No se encontró el dato requerido.", e);
+            } else if (e.getErrorCode() == 20003) {
+                throw new Exception("Error: Tipo de dato incorrecto o valor fuera de rango.", e);
+            } else {
+                throw new Exception("Error inesperado al crear la opción: " + e.getMessage(), e);
+            }
+        }
     }
 
 

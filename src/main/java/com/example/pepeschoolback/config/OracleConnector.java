@@ -2,10 +2,13 @@ package com.example.pepeschoolback.config;
 
 import java.sql.*;
 import java.util.Properties;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class OracleConnector {
 
-    private String url = "jdbc:oracle:thin:@//localhost:1521/XEPDB1";
+    private String url = "jdbc:oracle:thin:@//localhost:1521/XEPDB1?connectTimeout=30000";
     private String user = "C##ANAUSER";
     private String password = "12345";
     private Connection con;
@@ -13,6 +16,7 @@ public class OracleConnector {
     public Connection getConnection() {
         return con;
     }
+
     public void connect() {
         try {
             Properties info = new Properties();
@@ -32,9 +36,20 @@ public class OracleConnector {
                 System.out.println("ID: " + id + ", Nombre: " + nombre + ", Descripcion: " + descripcion);
             }
 
-            // Cierra la conexión
-            //conn.close();
+            ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+            scheduler.schedule(() -> cerrarConexion(con), 2000, TimeUnit.SECONDS);
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void cerrarConexion(Connection conexion) {
+        try {
+            if (conexion != null && !conexion.isClosed()) {
+                conexion.close();
+                System.out.println("Conexión cerrada por timeout");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
