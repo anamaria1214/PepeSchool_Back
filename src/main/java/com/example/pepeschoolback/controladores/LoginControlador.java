@@ -1,5 +1,6 @@
 package com.example.pepeschoolback.controladores;
 
+import com.example.pepeschoolback.DAO.ListasDAO;
 import com.example.pepeschoolback.DAO.LoginDAO;
 import com.example.pepeschoolback.config.OracleConnector;
 import com.example.pepeschoolback.config.UsuarioActivo;
@@ -17,8 +18,6 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
 
 public class LoginControlador {
 
@@ -58,6 +57,7 @@ public class LoginControlador {
         }
         int userId = loginDAO.login(nombreUsuario.getText(), contrasenia.getText(), tipo);
         if (userId > 0 && tipo==1) {
+            OracleConnector oracleConnector = new OracleConnector();
             System.out.println("Inicio de sesión exitoso. ID: " + userId);
             usuario.login(nombreUsuario.getText(), tipo, userId);
             System.out.println("Se guardó el usuario: "+usuario.getUserId());
@@ -73,10 +73,17 @@ public class LoginControlador {
             Stage stageActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stageActual.close();
         }else if(userId > 0 && tipo==2){
+
+            OracleConnector oracleConnector = new OracleConnector();
+            oracleConnector.connect();
+
+            ListasDAO listasDAO= new ListasDAO(oracleConnector);
+
             System.out.println("Inicio de sesión exitoso. ID: " + userId);
             usuario.login(nombreUsuario.getText(), tipo, userId);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pepeschoolback/views/DashboardMaestro.fxml"));
-            loader.setController(new DashboardMaestroController());
+
+            loader.setController(new DashboardMaestroController(listasDAO));
             Parent root = loader.load();
             Stage stage= new Stage();
             Scene scene = new Scene(root);

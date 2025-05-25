@@ -9,7 +9,7 @@
             <Label style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" text="Dashboard - Maestro" />
             <Label fx:id="lblNombreUsuario" style="-fx-text-fill: white; -fx-font-size: 16;" />
             <Region HBox.hgrow="ALWAYS" />
-            <Button onAction="#cerrarSesion" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Cerrar Sesión" />
+            <Button style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Cerrar Sesión" />
         </HBox>
     </top>
 
@@ -17,7 +17,7 @@
         <VBox spacing="10" style="-fx-background-color: #34495e; -fx-pref-width: 200;">
             <Button onAction="#mostrarExamenes" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-pref-width: 180; -fx-pref-height: 40;" text="Mis Examenes" />
             <Button onAction="#mostrarCrearPregunta" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-pref-width: 180; -fx-pref-height: 40;" text="Mis preguntas" />
-            <Button onAction="#mostrarGrupos" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-pref-width: 180; -fx-pref-height: 40;" text="Mis Grupos" />
+            <!-- <Button onAction="#mostrarGrupos" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-pref-width: 180; -fx-pref-height: 40;" text="Mis Grupos" /> -->
         </VBox>
     </left>
 
@@ -28,32 +28,14 @@
             <!-- Vista por defecto (Mis Exámenes) -->
             <VBox fx:id="examenesView" spacing="15" style="-fx-padding: 20;">
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label style="-fx-font-weight: bold; -fx-font-size: 18;" text="Mis Exámenes" />
+                    <Label style="-fx-font-weight: bold; -fx-font-size: 18;" text="Mis Grupos" />
                 </HBox>
-
-                <TableView fx:id="tblExamenes" style="-fx-pref-height: 400;">
-                    <columns>
-                        <TableColumn fx:id="colIdExamen" prefWidth="50" text="ID" />
-                        <TableColumn fx:id="colNombreExamen" prefWidth="200" text="Nombre" />
-                        <TableColumn fx:id="colMateriaExamen" prefWidth="150" text="Materia" />
-                        <TableColumn fx:id="colFechaExamen" prefWidth="100" text="Fecha" />
-                        <TableColumn fx:id="colPreguntasExamen" prefWidth="80" text="Preguntas" />
-                        <TableColumn fx:id="colAccionesExamen" prefWidth="150" text="Acciones" />
-                    </columns>
-                </TableView>
-            </VBox>
-
-            <!-- Vista de Grupos (oculta inicialmente) -->
-            <VBox fx:id="gruposView" spacing="15" style="-fx-padding: 20;" visible="false">
-                <Label style="-fx-font-weight: bold; -fx-font-size: 18;" text="Mis Grupos" />
-
                 <TableView fx:id="tblGrupos" style="-fx-pref-height: 400;">
                     <columns>
-                        <TableColumn fx:id="colIdGrupo" prefWidth="50" text="ID" />
-                        <TableColumn fx:id="colNombreGrupo" prefWidth="200" text="Nombre" />
-                        <TableColumn fx:id="colMateriaGrupo" prefWidth="150" text="Materia" />
-                        <TableColumn fx:id="colEstudiantesGrupo" prefWidth="80" text="Estudiantes" />
-                        <TableColumn fx:id="colAccionesGrupo" prefWidth="150" text="Acciones" />
+                        <TableColumn fx:id="colMateria" prefWidth="125" text="Materia" />
+                        <TableColumn fx:id="colGrupo" prefWidth="125" text="Grupo" />
+                        <TableColumn fx:id="colDia" prefWidth="125" text="Dia" />
+                        <TableColumn fx:id="colHora" prefWidth="125" text="Hora" />
                     </columns>
                 </TableView>
             </VBox>

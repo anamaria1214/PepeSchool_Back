@@ -2,6 +2,7 @@ package com.example.pepeschoolback.DAO;
 
 import com.example.pepeschoolback.config.OracleConnector;
 import com.example.pepeschoolback.modelo.documentos.Examen;
+import com.example.pepeschoolback.modelo.documentos.Grupo;
 import com.example.pepeschoolback.modelo.documentos.Pregunta;
 import com.example.pepeschoolback.modelo.vo.*;
 
@@ -175,7 +176,7 @@ public class ListasDAO {
     }
     public List<Pregunta> obtenerPreguntastemaytipo(int tema_id, int tipopregunta_id) throws SQLException {
         List<Pregunta> lista = new ArrayList<>();
-        String sql = "SELECT p.id, p.descripcion, p.respuesta, t.nombre, p.peso FROM PREGUNTA p JOIN TEMA t ON t.id=p.tema_id where p.tema_id="+tema_id+" AND p.tipopregunta_id="+tipopregunta_id;
+        String sql = "SELECT p.id, p.descripcion, p.respuesta, t.nombre, p.peso FROM PREGUNTA p JOIN TEMA t ON t.id=p.tema_id where p.tema_id="+tema_id+" AND p.tipopregunta_id="+tipopregunta_id+" AND visibilidad_id=1";
 
         ResultSet rs = oracleConnector.realizarConsulta(sql);
         while (rs.next()) {
@@ -185,6 +186,24 @@ public class ListasDAO {
                     rs.getString("respuesta"),
                     rs.getInt("peso"),
                     rs.getString("nombre")
+            );
+            lista.add(tipo);
+        }
+
+        return lista;
+    }
+
+    public List<Grupo> obtenerGrupoDoccente(int docente_id) throws SQLException {
+        List<Grupo> lista = new ArrayList<>();
+        String sql = "SELECT m.nombre AS materia, g.nombre AS GRUPO, h.diaclase, h.horaclase FROM Materia m JOIN Detallegrupomateria dgm on m.id=dgm.materia_id JOIN Grupo g ON dgm.grupo_id=g.id JOIN Horario h ON h.id= m.horario_id where m.docente_id="+docente_id;
+
+        ResultSet rs = oracleConnector.realizarConsulta(sql);
+        while (rs.next()) {
+            Grupo tipo = new Grupo(
+                    rs.getString("materia"),
+                    rs.getString("grupo"),
+                    rs.getString("diaclase"),
+                    rs.getString("horaclase")
             );
             lista.add(tipo);
         }

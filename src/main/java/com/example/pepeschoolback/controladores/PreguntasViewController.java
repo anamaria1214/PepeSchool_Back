@@ -93,7 +93,7 @@ public class PreguntasViewController implements Initializable {
         oracleConnector.connect();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pepeschoolback/views/DashboardMaestro.fxml"));
-        loader.setController(new DashboardMaestroController());
+        loader.setController(new DashboardMaestroController(listasDAO));
         Parent root = loader.load();
 
         Stage stage= new Stage();
