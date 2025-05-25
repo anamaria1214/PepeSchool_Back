@@ -41,9 +41,9 @@
                     <Label text="Tema:" GridPane.rowIndex="12" />
                     <ComboBox fx:id="cbTema" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                <Label text="Preguntas Examen:" GridPane.rowIndex="3" />
-               <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               <TextField fx:id="txtCantPreguntasExamen" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                <Label text="Preguntas Estudiante:" GridPane.rowIndex="5" />
-               <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               <TextField fx:id="txtCantPreguntasEstudiante" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                <columnConstraints>
                   <ColumnConstraints />
                   <ColumnConstraints />

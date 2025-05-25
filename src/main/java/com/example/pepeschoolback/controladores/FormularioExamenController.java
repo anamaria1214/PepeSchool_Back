@@ -19,6 +19,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -31,6 +32,9 @@ public class FormularioExamenController implements Initializable {
     @FXML private TextArea txtDescripcion;
     @FXML private TextField txtNotaMinima;
     @FXML private TextField txtLimiteTiempo;
+    @FXML private TextField txtCantPreguntasExamen;
+    @FXML private TextField txtCantPreguntasEstudiante;
+
     @FXML private DatePicker dpFechaPresentacion;
     @FXML private ComboBox<Materia> cbMateria;
     @FXML private ComboBox<Categoria> cbCategoria;
@@ -63,16 +67,6 @@ public class FormularioExamenController implements Initializable {
         this.docenteDAO = docenteDAO;
     }
 
-    private void configurarTablaPreguntasDisponibles() {
-        // Configuración de columnas y botones de acción
-        // ...
-    }
-
-    private void configurarTablaPreguntasSeleccionadas() {
-        // Configuración de columnas y botones para eliminar
-        // ...
-    }
-
     private void cargarComboboxes() throws SQLException {
         List<Categoria> categorias = listasDAO.obtenerTodosCategoria();
         cbCategoria.getItems().addAll(categorias);
@@ -87,11 +81,6 @@ public class FormularioExamenController implements Initializable {
         cbMateria.getItems().addAll(materias);
     }
 
-    @FXML
-    private void buscarPreguntas() {
-
-
-    }
 
     @FXML
     private void eliminarPregunta(PreguntaExamen pregunta) {
@@ -99,7 +88,32 @@ public class FormularioExamenController implements Initializable {
     }
 
     @FXML
-    private void guardarExamen() {
+    private void guardarExamen() throws Exception {
+        try{
+            int idExamen= docenteDAO.crearExamen(0, txtNombre.getText(), txtDescripcion.getText(),
+                    Integer.parseInt(txtCantPreguntasExamen.getText()), Integer.parseInt(txtNotaMinima.getText()),
+                    Integer.parseInt(txtLimiteTiempo.getText()),
+                    dpFechaPresentacion.getValue(),cbMateria.getValue().getId(), cbCategoria.getValue().getId(),
+                    cbTema.getValue().getId(),cbTema.getValue().getId(),Integer.parseInt(txtCantPreguntasEstudiante.getText()));
+            JOptionPane.showMessageDialog(null, "El examen se agregó correctamente");
+            System.out.println(idExamen);
+            int cantPregSelec= preguntasSeleccionadas.size();
+            System.out.println(cantPregSelec);
+            for(PreguntaExamen pregunta:preguntasSeleccionadas){
+                System.out.println(pregunta.getId()+", "+pregunta.getEnunciado());
+                try {
+                    docenteDAO.agregarPreguntasExamen(idExamen, pregunta.getId(), pregunta.getPeso());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    mostrarAlerta("Error con pregunta ID " + pregunta.getId(), e.getMessage());
+                    return;
+                }
+            }
+            mostrarAlerta("Éxito", "Todas las preguntas fueron asignadas correctamente");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 

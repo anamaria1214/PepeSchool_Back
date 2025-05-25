@@ -5,24 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a31f7f2-79f1-4453-a58b-c75be1e04a42" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/ExamenViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/PreguntasViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/ExamenView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/PreguntasView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/90e1dd5e-b4d0-4a95-8c74-c353b26c4eaf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/90e1dd5e-b4d0-4a95-8c74-c353b26c4eaf.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20_05_2025_6_58_p__m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20_05_2025_6_58_p__m___Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/ListasDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/ListasDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/DashboardMaestroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/DashboardMaestroController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/DocenteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/DocenteDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioExamenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioExamenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioPregunta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/FormularioPregunta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/LoginControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/LoginControlador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/documentos/Examen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/documentos/Examen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/documentos/Pregunta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/documentos/Pregunta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/DashboardEstudiante.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/DashboardEstudiante.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/DashboardMaestro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/DashboardMaestro.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/FormularioExamen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/FormularioExamen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/FormularioPregunta.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/FormularioPregunta.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
