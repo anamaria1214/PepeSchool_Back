@@ -2,16 +2,11 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.geometry.*?>
 
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pepeschoolback.controladores.FormularioExamenController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <top>
-        <HBox style="-fx-background-color: #2c3e50; -fx-padding: 15;" alignment="CENTER">
-            <Label text="Crear Nuevo Examen" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" />
+        <HBox alignment="CENTER" style="-fx-background-color: #2c3e50; -fx-padding: 15;">
+            <Label style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" text="Crear Nuevo Examen" />
         </HBox>
     </top>
 
@@ -20,82 +15,98 @@
             <VBox spacing="15" style="-fx-padding: 20;">
                 <!-- Sección de información básica del examen -->
                 <GridPane hgap="10" vgap="10">
-                    <Label text="Información del Examen:" style="-fx-font-weight: bold; -fx-font-size: 16;" GridPane.columnSpan="2"/>
+                    <Label style="-fx-font-weight: bold; -fx-font-size: 16;" text="Información del Examen:" GridPane.columnSpan="2" />
 
-                    <Label text="Nombre del Examen:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                    <TextField fx:id="txtNombre" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <Label text="Nombre del Examen:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="txtNombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                    <Label text="Descripción:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                    <TextArea fx:id="txtDescripcion" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    <Label text="Descripción:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <TextArea fx:id="txtDescripcion" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                    <Label text="Nota Mínima:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                    <TextField fx:id="txtNotaMinima" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    <Label text="Nota Mínima:" GridPane.rowIndex="7" />
+                    <TextField fx:id="txtNotaMinima" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
-                    <Label text="Límite de Tiempo (min):" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                    <TextField fx:id="txtLimiteTiempo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                    <Label text="Límite de Tiempo (min):" GridPane.rowIndex="8" />
+                    <TextField fx:id="txtLimiteTiempo" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 
-                    <Label text="Fecha de Presentación:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                    <DatePicker fx:id="dpFechaPresentacion" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                    <Label text="Fecha de Presentación:" GridPane.rowIndex="9" />
+                    <DatePicker fx:id="dpFechaPresentacion" GridPane.columnIndex="1" GridPane.rowIndex="9" />
 
-                    <Label text="Materia:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-                    <ComboBox fx:id="cbMateria" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                    <Label text="Materia:" GridPane.rowIndex="10" />
+                    <ComboBox fx:id="cbMateria" GridPane.columnIndex="1" GridPane.rowIndex="10" />
 
-                    <Label text="Categoría:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-                    <ComboBox fx:id="cbCategoria" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                    <Label text="Categoría:" GridPane.rowIndex="11" />
+                    <ComboBox fx:id="cbCategoria" GridPane.columnIndex="1" GridPane.rowIndex="11" />
 
-                    <Label text="Tema:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
-                    <ComboBox fx:id="cbTema" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+                    <Label text="Tema:" GridPane.rowIndex="12" />
+                    <ComboBox fx:id="cbTema" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+               <Label text="Preguntas Examen:" GridPane.rowIndex="3" />
+               <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               <Label text="Preguntas Estudiante:" GridPane.rowIndex="5" />
+               <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
                 </GridPane>
 
                 <!-- Sección para agregar preguntas -->
                 <VBox spacing="10" style="-fx-padding: 10; -fx-border-color: #bdc3c7; -fx-border-width: 1; -fx-border-radius: 5;">
-                    <Label text="Agregar Preguntas al Examen" style="-fx-font-weight: bold; -fx-font-size: 16;"/>
+                    <Label style="-fx-font-weight: bold; -fx-font-size: 16;" text="Agregar Preguntas al Examen" />
 
-                    <HBox spacing="10" alignment="CENTER_LEFT">
-                        <Label text="Tipo de Pregunta:"/>
-                        <ComboBox fx:id="cbTipoPregunta" style="-fx-pref-width: 200;">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Selección Múltiple"/>
-                                    <String fx:value="Verdadero/Falso"/>
-                                    <String fx:value="Respuesta Corta"/>
-                                </FXCollections>
-                            </items>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="Tipo de Pregunta:" />
+                        <ComboBox fx:id="cbTipoPregunta" onAction="#cargarTabla" style="-fx-pref-width: 200;">
                         </ComboBox>
 
-                        <Label text="Peso:"/>
-                        <TextField fx:id="txtPeso" style="-fx-pref-width: 50;" promptText="1"/>
+                        <Label text="Peso:" />
+                        <TextField fx:id="txtPeso" promptText="1" style="-fx-pref-width: 50;" />
 
-                        <Button text="Buscar Preguntas" onAction="#buscarPreguntas" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                        <Button onAction="#agregarPregunta" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Agregar Pregunta" />
                     </HBox>
 
                     <!-- Lista de preguntas disponibles -->
                     <TableView fx:id="tblPreguntasDisponibles" style="-fx-pref-height: 200;">
                         <columns>
-                            <TableColumn text="ID" fx:id="colIdPregunta" prefWidth="50"/>
-                            <TableColumn text="Enunciado" fx:id="colEnunciado" prefWidth="300"/>
-                            <TableColumn text="Tipo" fx:id="colTipoPregunta" prefWidth="120"/>
-                            <TableColumn text="Acción" fx:id="colAccion" prefWidth="80"/>
+                            <TableColumn fx:id="colIdPregunta" prefWidth="50" text="ID" />
+                            <TableColumn fx:id="colEnunciado" prefWidth="272.0" text="Enunciado" />
+                            <TableColumn fx:id="colRespuesta" prefWidth="173.0" text="Respuesta" />
+                            <TableColumn fx:id="colTipo" prefWidth="108.0" text="Tipo" />
                         </columns>
                     </TableView>
 
                     <!-- Preguntas seleccionadas para el examen -->
-                    <Label text="Preguntas Seleccionadas:" style="-fx-font-weight: bold;"/>
+                    <Label style="-fx-font-weight: bold;" text="Preguntas Seleccionadas:" />
                     <TableView fx:id="tblPreguntasSeleccionadas" style="-fx-pref-height: 200;">
                         <columns>
-                            <TableColumn text="ID" fx:id="colIdPreguntaSel" prefWidth="50"/>
-                            <TableColumn text="Enunciado" fx:id="colEnunciadoSel" prefWidth="300"/>
-                            <TableColumn text="Tipo" fx:id="colTipoPreguntaSel" prefWidth="120"/>
-                            <TableColumn text="Peso" fx:id="colPeso" prefWidth="50"/>
-                            <TableColumn text="Acción" fx:id="colEliminar" prefWidth="80"/>
+                            <TableColumn fx:id="colIdPreguntaSel" prefWidth="50" text="ID" />
+                            <TableColumn fx:id="colEnunciadoSel" prefWidth="258.0" text="Enunciado" />
+                            <TableColumn fx:id="colRespuestaSel" prefWidth="162.0" text="Respuesta" />
+                            <TableColumn fx:id="colPeso" prefWidth="50" text="Peso" />
+                            <TableColumn fx:id="colEliminar" prefWidth="82.0" text="Acción" />
                         </columns>
                     </TableView>
                 </VBox>
 
                 <!-- Botones de acción -->
-                <HBox spacing="10" alignment="CENTER_RIGHT">
-                    <Button text="Cancelar" onAction="#cancelar" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
-                    <Button text="Guardar Examen" onAction="#guardarExamen" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <Button onAction="#cancelar" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Cancelar" />
+                    <Button onAction="#guardarExamen" style="-fx-background-color: #2ecc71; -fx-text-fill: white;" text="Guardar Examen" />
                 </HBox>
             </VBox>
         </ScrollPane>

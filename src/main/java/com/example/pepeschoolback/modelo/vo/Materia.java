@@ -5,6 +5,12 @@ public class Materia {
     private String nombre;
     private String descripcion;
 
+    public Materia(int id, String nombre, String descripcion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
     @Override
     public String toString() {
         return nombre;

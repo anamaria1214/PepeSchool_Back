@@ -2,19 +2,25 @@ package com.example.pepeschoolback.controladores;
 
 import com.example.pepeschoolback.DAO.DocenteDAO;
 import com.example.pepeschoolback.DAO.ListasDAO;
+import com.example.pepeschoolback.config.OracleConnector;
 import com.example.pepeschoolback.config.UsuarioActivo;
 import com.example.pepeschoolback.modelo.vo.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -392,6 +398,7 @@ public class FormularioPregunta implements Initializable{
         }
     }
 
+
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -483,5 +490,21 @@ public class FormularioPregunta implements Initializable{
         return lista;
     }
 
+    @FXML
+    private void cancelar() throws IOException {
+        OracleConnector oracleConnector = new OracleConnector();
+        oracleConnector.connect();
 
+        ListasDAO listasDAO = new ListasDAO(oracleConnector);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pepeschoolback/views/PreguntaViewView.fxml"));
+        loader.setController(new ExamenViewController(listasDAO));
+        Parent root = loader.load();
+
+        Stage stage= new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle("Pepe School");
+        stage.setScene(scene);
+        stage.show();
+    }
 }

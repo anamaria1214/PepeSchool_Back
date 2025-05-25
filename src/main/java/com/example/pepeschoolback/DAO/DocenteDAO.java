@@ -6,12 +6,45 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Date;
 
 public class DocenteDAO {
     private final OracleConnector oracleConnector;
 
     public DocenteDAO(OracleConnector oracleConnector) {
         this.oracleConnector = oracleConnector;
+    }
+
+    public int crearExamen(int id, String nombre, String descripcion, int cantPreguntasMin, int limitetiempo,
+                           Date fechaPresentacion, int materia_id, int categoria_id, int tema_id, int cantpreguntasEstu){
+        Connection con = null;
+        CallableStatement stmt = null;
+        int resultado = 0;
+        try {
+            con = oracleConnector.getConnection();
+            String call = "{ ? = call crear_examen(?,?,?,?,?,?,?,?,?,?) }";
+            stmt = con.prepareCall(call);
+
+            stmt.registerOutParameter(1, Types.INTEGER);
+            stmt.setInt(2, id);
+            stmt.setString(3, nombre);
+            stmt.setString(4, descripcion);
+            stmt.setInt(5, cantPreguntasMin);
+            stmt.setInt(6, limitetiempo);
+            stmt.setDate(7, (java.sql.Date) fechaPresentacion);
+            stmt.setInt(8, materia_id);
+            stmt.setInt(9, categoria_id);
+            stmt.setInt(10, tema_id);
+            stmt.setInt(11, cantpreguntasEstu);
+
+            stmt.execute();
+            resultado = stmt.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return resultado;
+        }
+        return resultado;
     }
 
     public int agregarPregunta(int id, String descripcion, String respuesta, int estado_id,

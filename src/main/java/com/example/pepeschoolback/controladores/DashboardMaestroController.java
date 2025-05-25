@@ -6,6 +6,7 @@ import com.example.pepeschoolback.config.OracleConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -102,11 +103,12 @@ public class DashboardMaestroController {
 
         ListasDAO listasDAO = new ListasDAO(oracleConnector);
 
-        DocenteDAO docenteDAO= new DocenteDAO(oracleConnector);
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pepeschoolback/views/FormularioPregunta.fxml"));
-        loader.setController(new FormularioPregunta(listasDAO, docenteDAO));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pepeschoolback/views/PreguntasView.fxml"));
+        loader.setController(new PreguntasViewController(listasDAO));
         Parent root = loader.load();
+
+        Stage stageActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stageActual.close();
 
         Stage stage= new Stage();
         Scene scene = new Scene(root);
@@ -116,8 +118,24 @@ public class DashboardMaestroController {
     }
 
     @FXML
-    void mostrarExamenes(ActionEvent event) {
+    void mostrarExamenes(ActionEvent event) throws IOException {
+        OracleConnector oracleConnector = new OracleConnector();
+        oracleConnector.connect();
 
+        ListasDAO listasDAO = new ListasDAO(oracleConnector);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pepeschoolback/views/ExamenView.fxml"));
+        loader.setController(new ExamenViewController(listasDAO));
+        Parent root = loader.load();
+
+        Stage stageActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stageActual.close();
+
+        Stage stage= new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle("Pepe School");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -125,15 +143,4 @@ public class DashboardMaestroController {
 
     }
 
-    public static void cambiarPantalla(String nombreFXML, Stage stage) {
-        try {
-            FXMLLoader loader = new FXMLLoader(LoginControlador.class.getResource("/com/example/pepeschoolback/views/" + nombreFXML + ".fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

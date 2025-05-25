@@ -1,6 +1,8 @@
 package com.example.pepeschoolback.DAO;
 
 import com.example.pepeschoolback.config.OracleConnector;
+import com.example.pepeschoolback.modelo.documentos.Examen;
+import com.example.pepeschoolback.modelo.documentos.Pregunta;
 import com.example.pepeschoolback.modelo.vo.*;
 
 import java.sql.Connection;
@@ -112,6 +114,77 @@ public class ListasDAO {
                     rs.getInt("id"),
                     rs.getString("nombre"),
                     rs.getString("descripcion")
+            );
+            lista.add(tipo);
+        }
+
+        return lista;
+    }
+    public List<Materia> obtenerMateriasDocente(int idDocente) throws SQLException {
+        List<Materia> lista = new ArrayList<>();
+        String sql = "select id, nombre, descripcion from materia where docente_id="+idDocente;
+
+        ResultSet rs = oracleConnector.realizarConsulta(sql);
+        while (rs.next()) {
+            Materia materia = new Materia(
+                    rs.getInt("id"),
+                    rs.getString("nombre"),
+                    rs.getString("descripcion")
+            );
+            lista.add(materia);
+        }
+        return lista;
+    }
+    public List<Pregunta> obtenerPreguntasDocente(int idDocente) throws SQLException {
+        List<Pregunta> lista = new ArrayList<>();
+        String sql = "SELECT p.id, p.descripcion,p.respuesta, p.peso, tp.nombre FROM Pregunta p JOIN TIPOPREGUNTA tp ON p.tipopregunta_id=tp.id WHERE p.docente_id="+idDocente;
+
+        ResultSet rs = oracleConnector.realizarConsulta(sql);
+        while (rs.next()) {
+            Pregunta tipo = new Pregunta(
+                    rs.getInt("id"),
+                    rs.getString("descripcion"),
+                    rs.getString("respuesta"),
+                    rs.getInt("peso"),
+                    rs.getString("nombre")
+            );
+            lista.add(tipo);
+        }
+
+        return lista;
+    }
+
+
+    public List<Examen> obtenerExamenDocente(int idDocente) throws SQLException {
+        List<Examen> lista = new ArrayList<>();
+        String sql = "SELECT e.nombre, e.descripcion, e.cantpreguntas, e.fechapresentacion, m.nombre AS materia FROM EXAMEN e JOIN MATERIA m ON e.materia_id=m.id WHERE m.docente_id="+idDocente;
+
+        ResultSet rs = oracleConnector.realizarConsulta(sql);
+        while (rs.next()) {
+            Examen examen = new Examen(
+                    rs.getString("nombre"),
+                    rs.getString("descripcion"),
+                    rs.getInt("cantpreguntas"),
+                    rs.getDate("fechapresentacion"),
+                    rs.getString("materia")
+            );
+            lista.add(examen);
+        }
+
+        return lista;
+    }
+    public List<Pregunta> obtenerPreguntastemaytipo(int tema_id, int tipopregunta_id) throws SQLException {
+        List<Pregunta> lista = new ArrayList<>();
+        String sql = "SELECT p.id, p.descripcion, p.respuesta, t.nombre, p.peso FROM PREGUNTA p JOIN TEMA t ON t.id=p.tema_id where p.tema_id="+tema_id+" AND p.tipopregunta_id="+tipopregunta_id;
+
+        ResultSet rs = oracleConnector.realizarConsulta(sql);
+        while (rs.next()) {
+            Pregunta tipo = new Pregunta(
+                    rs.getInt("id"),
+                    rs.getString("descripcion"),
+                    rs.getString("respuesta"),
+                    rs.getInt("peso"),
+                    rs.getString("nombre")
             );
             lista.add(tipo);
         }
