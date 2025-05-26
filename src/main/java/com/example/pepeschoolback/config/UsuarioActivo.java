@@ -15,6 +15,16 @@ public class UsuarioActivo {
     private Integer userId;
     private final Map<String, Object> attributes = new HashMap<>();
 
+    public int getIdExamen() {
+        return idExamen;
+    }
+
+    public void setIdExamen(int idExamen) {
+        this.idExamen = idExamen;
+    }
+
+    private int idExamen;
+
     // Constructor privado para evitar instanciación
     private UsuarioActivo() {
         logout(); // Inicializar en estado "no logueado"

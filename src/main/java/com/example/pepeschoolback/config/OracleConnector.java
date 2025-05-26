@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class OracleConnector {
 
     private String url = "jdbc:oracle:thin:@//localhost:1521/XEPDB1?connectTimeout=30000";
-    private String user = "C##ANAUSER";
+    private String user = "ANAUSER";
     private String password = "12345";
     private Connection con;
 

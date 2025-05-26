@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pepeschoolback.controladores.Responder_ExamenController">
+    <VBox spacing="20" padding="Insets(20)">
+        <Label fx:id="lblTituloExamen" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <Label fx:id="lblPregunta" wrapText="true" />
+
+        <!-- Contenedor dinámico para opciones -->
+        <VBox fx:id="contenedorRespuestas" spacing="10" />
+
+        <!-- Botones de navegación y envío -->
+        <HBox spacing="10">
+            <Button text="Anterior" onAction="#anteriorPregunta" />
+            <Button text="Siguiente" onAction="#siguientePregunta" />
+            <Button text="Enviar Examen" onAction="#enviarExamen" />
+        </HBox>
+    </VBox>
+</AnchorPane>

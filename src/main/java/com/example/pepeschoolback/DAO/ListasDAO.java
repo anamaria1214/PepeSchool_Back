@@ -1,6 +1,7 @@
 package com.example.pepeschoolback.DAO;
 
 import com.example.pepeschoolback.config.OracleConnector;
+import com.example.pepeschoolback.config.UsuarioActivo;
 import com.example.pepeschoolback.modelo.documentos.Examen;
 import com.example.pepeschoolback.modelo.documentos.Grupo;
 import com.example.pepeschoolback.modelo.documentos.Pregunta;
@@ -211,5 +212,42 @@ public class ListasDAO {
         return lista;
     }
 
+    public List<Pregunta> obtenerPreguntasDelExamen(int idExamen) throws SQLException {
+        ResultSet rs = oracleConnector.realizarConsulta(
+                "SELECT p.respuesta AS respuesta, p.peso AS peso, p.id AS preguntaId, p.descripcion AS enunciado, tp.nombre AS tipoPregunta" +
+                        "FROM examen e " +
+                        "JOIN detalleexamenpregunta d ON e.id = d.examen_id " +
+                        "JOIN pregunta p ON d.pregunta_id = p.id " +
+                        "JOIN tipoPregunta tp ON p.tipoPregunta_id = tp.id " +
+                        "WHERE e.id = " + idExamen
+        );
+
+        List<Pregunta> preguntas = new ArrayList<>();
+        while (rs.next()) {
+            Pregunta pregunta = new Pregunta(
+                    rs.getInt("PREGUNTAID"),
+                    rs.getString("ENUNCIADO"),
+                    rs.getString("RESPUESTA"),
+                    rs.getInt("PESO"),
+                    rs.getString("TIPOPREGUNTA")
+                    );
+            preguntas.add(pregunta);
+        }
+
+        return preguntas;
+    }
+
+    public List<OpcionRespuesta> obtenerOpcionesRespuesta(int pregunta_id) throws SQLException {
+        ResultSet rs = oracleConnector.realizarConsulta(
+                "SELECT o.descripcion AS texto, o.respuestacorrecta AS escorrecta FROM Opcion o JOIN Pregunta p ON o.pregunta_id = p.id WHERE p.id = " + pregunta_id
+        );
+
+        List<OpcionRespuesta> opcionRespuestas = new ArrayList<>();
+        while (rs.next()) {
+            opcionRespuestas.add(new OpcionRespuesta(rs.getString("TEXTO"), rs.getString("ESCORRECTA")));
+        }
+
+        return opcionRespuestas;
+    }
 
 }
