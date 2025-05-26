@@ -45,3 +45,4 @@ build/
 .idea/shelf/Uncommitted_changes_before_Checkout_at_5_16_2025_12_39_AM_\[Changes\]/shelved.patch
 .idea/shelf/Uncommitted_changes_before_Checkout_at_5_16_2025_12_39_AM__Changes_.xml
 .idea/vcs.xml
+.idea/*
