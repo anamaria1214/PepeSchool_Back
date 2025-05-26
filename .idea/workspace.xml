@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a31f7f2-79f1-4453-a58b-c75be1e04a42" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/modelo/documentos/Grupo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/ListasDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/DAO/ListasDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/DashboardMaestroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/DashboardMaestroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/ExamenViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/ExamenViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/LoginControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/LoginControlador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/PreguntasViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pepeschoolback/controladores/PreguntasViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/DashboardMaestro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/pepeschoolback/views/DashboardMaestro.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/90e1dd5e-b4d0-4a95-8c74-c353b26c4eaf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/90e1dd5e-b4d0-4a95-8c74-c353b26c4eaf.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_16_2025_12_39_AM_[Changes]/shelved.patch" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +37,6 @@
     &quot;associatedIndex&quot;: 4
     }</component>
   <component name="ProjectId" id="2wmB57FOi3PnwpiYS0TtgxPZsF6" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -60,9 +53,9 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Ana",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/juanp/OneDrive/Documents/repos/PepeSchool_Back",
+    "last_opened_file_path": "C:/Users/pepe/Documents/GitHub/PepeSchool_Back",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -108,8 +101,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
       </set>
     </attachedChunks>
   </component>
@@ -133,6 +126,7 @@
       <workItem from="1747665043056" duration="2409000" />
       <workItem from="1747749400023" duration="30643000" />
       <workItem from="1748089744884" duration="12861000" />
+      <workItem from="1748234364654" duration="976000" />
     </task>
     <servers />
   </component>
