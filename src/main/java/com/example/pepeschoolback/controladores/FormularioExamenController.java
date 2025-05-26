@@ -109,6 +109,16 @@ public class FormularioExamenController implements Initializable {
                     return;
                 }
             }
+            int preguntasFaltante= Integer.parseInt(txtCantPreguntasExamen.getText())-cantPregSelec;
+            try{
+                if(preguntasFaltante>0){
+                    docenteDAO.balancear_preguntas(preguntasFaltante, idExamen,cbTema.getValue().getId());
+                    JOptionPane.showMessageDialog(null, "Se agregaron las "+preguntasFaltante+" preguntas restante");
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
             mostrarAlerta("Éxito", "Todas las preguntas fueron asignadas correctamente");
 
         }catch (Exception e){

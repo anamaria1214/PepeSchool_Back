@@ -139,6 +139,32 @@ public class DocenteDAO {
         }
     }
 
+    public void balancear_preguntas(int cant_preguntas,int examen_id, int tema_id) throws Exception {
+
+        Connection con = null;
+        CallableStatement stmt = null;
+
+        try {
+            con = oracleConnector.getConnection();
+            String call = "{ call balancear_preguntas(?, ?, ?) }";
+            stmt = con.prepareCall(call);
+
+            stmt.setInt(1, cant_preguntas);
+            stmt.setInt(2, examen_id);
+            stmt.setInt(3, tema_id);
+
+            stmt.execute();
+
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 20002) {
+                throw new SQLException("No se encontraron suficientes preguntas.", e);
+            } else if (e.getErrorCode() == 20000) {
+                throw new SQLException("Error en balancear_preguntas:", e);
+            } else {
+                throw new SQLException("Error técnico al asignar pregunta: " + e.getMessage(), e);
+            }
+        }
+    }
 
 
 }
