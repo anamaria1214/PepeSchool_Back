@@ -2,25 +2,19 @@ package com.example.pepeschoolback.config;
 
 import java.sql.*;
 import java.util.Properties;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class OracleConnector {
 
-    private static OracleConnector instance;
-
-    private String url = "jdbc:oracle:thin:@//localhost:1521/xe";
-    private String user = "SYS";
-    private String password = "oracle";
+    private String url = "jdbc:oracle:thin:@//localhost:1521/XEPDB1?connectTimeout=30000";
+    private String user = "C##ANAUSER";
+    private String password = "12345";
     private Connection con;
 
-    public static OracleConnector getInstance() {
-        if (instance == null) {
-            synchronized (OracleConnector.class) {
-                if (instance == null) {
-                    instance = new OracleConnector();
-                }
-            }
-        }
-        return instance;
+    public Connection getConnection() {
+        return con;
     }
 
     public void connect() {
@@ -28,7 +22,7 @@ public class OracleConnector {
             Properties info = new Properties();
             info.put("user", user);
             info.put("password", password);
-            info.put("internal_logon", "C##Anauser");
+            //info.put("internal_logon", "SYSDBA");
 
             con = DriverManager.getConnection(url, info);
 
@@ -42,9 +36,20 @@ public class OracleConnector {
                 System.out.println("ID: " + id + ", Nombre: " + nombre + ", Descripcion: " + descripcion);
             }
 
-            // Cierra la conexión
-            //conn.close();
+            ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+            scheduler.schedule(() -> cerrarConexion(con), 2000, TimeUnit.SECONDS);
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void cerrarConexion(Connection conexion) {
+        try {
+            if (conexion != null && !conexion.isClosed()) {
+                conexion.close();
+                System.out.println("Conexión cerrada por timeout");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -60,4 +65,20 @@ public class OracleConnector {
 
         return null;
     }
+
+    public int ejecutarUpdate(String sql, Object... parametros) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            for (int i = 0; i < parametros.length; i++) {
+                stmt.setObject(i + 1, parametros[i]);
+            }
+
+            return stmt.executeUpdate(); // devuelve número de filas afectadas
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 }

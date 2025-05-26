@@ -3,13 +3,13 @@ package com.example.pepeschoolback.modelo.documentos;
 public class PreguntaExamen {
     private int id;
     private String enunciado;
-    private String tipo;
+    private String respuesta;
     private int peso;
 
-    public PreguntaExamen(int id, String enunciado, String tipo, int peso) {
+    public PreguntaExamen(int id, String enunciado, String respuesta, int peso) {
         this.id = id;
         this.enunciado = enunciado;
-        this.tipo = tipo;
+        this.respuesta = respuesta;
         this.peso = peso;
     }
 
@@ -29,12 +29,12 @@ public class PreguntaExamen {
         this.enunciado = enunciado;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getRespuesta() {
+        return respuesta;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setRespuesta(String respuesta) {
+        this.respuesta = respuesta;
     }
 
     public int getPeso() {

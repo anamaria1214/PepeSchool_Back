@@ -38,3 +38,11 @@ build/
 
 ### Mac OS ###
 .DS_Store
+.idea\workspace.xml
+\.idea\workspace.xml
+.idea/dataSources.local.xml
+.idea/dataSources/90e1dd5e-b4d0-4a95-8c74-c353b26c4eaf.xml
+.idea/shelf/Uncommitted_changes_before_Checkout_at_5_16_2025_12_39_AM_\[Changes\]/shelved.patch
+.idea/shelf/Uncommitted_changes_before_Checkout_at_5_16_2025_12_39_AM__Changes_.xml
+.idea/vcs.xml
+.idea/*

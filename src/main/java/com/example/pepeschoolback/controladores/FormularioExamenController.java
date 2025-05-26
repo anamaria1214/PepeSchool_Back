@@ -1,114 +1,86 @@
 package com.example.pepeschoolback.controladores;
 
+import com.example.pepeschoolback.DAO.DocenteDAO;
+import com.example.pepeschoolback.DAO.ListasDAO;
 import com.example.pepeschoolback.config.OracleConnector;
+import com.example.pepeschoolback.config.UsuarioActivo;
 import com.example.pepeschoolback.modelo.documentos.Pregunta;
 import com.example.pepeschoolback.modelo.documentos.PreguntaExamen;
+import com.example.pepeschoolback.modelo.vo.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class FormularioExamenController {
+public class FormularioExamenController implements Initializable {
     @FXML private TextField txtNombre;
     @FXML private TextArea txtDescripcion;
     @FXML private TextField txtNotaMinima;
     @FXML private TextField txtLimiteTiempo;
-    @FXML
-    private DatePicker dpFechaPresentacion;
-    @FXML private ComboBox<String> cbMateria;
-    @FXML private ComboBox<String> cbCategoria;
-    @FXML private ComboBox<String> cbTema;
+    @FXML private TextField txtCantPreguntasExamen;
+    @FXML private TextField txtCantPreguntasEstudiante;
 
-    // Sección de preguntas
-    @FXML private ComboBox<String> cbTipoPregunta;
+    @FXML private DatePicker dpFechaPresentacion;
+    @FXML private ComboBox<Materia> cbMateria;
+    @FXML private ComboBox<Categoria> cbCategoria;
+    @FXML private ComboBox<Tema> cbTema;
+    @FXML private ComboBox<TipoPregunta> cbTipoPregunta;
     @FXML private TextField txtPeso;
     @FXML private TableView<Pregunta> tblPreguntasDisponibles;
-    @FXML private TableView<PreguntaExamen> tblPreguntasSeleccionadas;
+    @FXML private TableColumn<Pregunta, Integer> colIdPregunta;
+    @FXML private TableColumn<Pregunta, String> colEnunciado;
+    @FXML private TableColumn<Pregunta, String> colRespuesta;
+    @FXML private TableColumn<Pregunta, String> colTipo;
 
-    // Listas de datos
+    @FXML private TableView<PreguntaExamen> tblPreguntasSeleccionadas;
+    @FXML private TableColumn<PreguntaExamen, Integer> colIdPreguntaSel;
+    @FXML private TableColumn<PreguntaExamen, String> colEnunciadoSel;
+    @FXML private TableColumn<PreguntaExamen, String> colRespuestaSel;
+    @FXML private TableColumn<PreguntaExamen, Integer> colPeso;
+    @FXML private TableColumn<PreguntaExamen, Void> colEliminar;
+
     private ObservableList<Pregunta> preguntasDisponibles = FXCollections.observableArrayList();
     private ObservableList<PreguntaExamen> preguntasSeleccionadas = FXCollections.observableArrayList();
 
-    private final OracleConnector oracleConnector;
+    private final ListasDAO listasDAO;
+    private final DocenteDAO docenteDAO;
 
-    public FormularioExamenController(OracleConnector oracleConnector) {
-        this.oracleConnector = oracleConnector;
+    private UsuarioActivo usuario = UsuarioActivo.getInstance();
+
+    public FormularioExamenController(ListasDAO listasDAO, DocenteDAO docenteDAO) {
+        this.listasDAO = listasDAO;
+        this.docenteDAO = docenteDAO;
     }
 
-    @FXML
-    public void initialize() {
-        // Configurar tablas
-        configurarTablaPreguntasDisponibles();
-        configurarTablaPreguntasSeleccionadas();
+    private void cargarComboboxes() throws SQLException {
+        List<Categoria> categorias = listasDAO.obtenerTodosCategoria();
+        cbCategoria.getItems().addAll(categorias);
 
-        // Cargar comboboxes (simulado)
-        cargarComboboxes();
+        List<Tema> temas= listasDAO.obtenerTodosTema();
+        cbTema.getItems().addAll(temas);
 
-        // Establecer valores por defecto
-        dpFechaPresentacion.setValue(LocalDate.now());
-        txtPeso.setText("1");
+        List<TipoPregunta> tipos= listasDAO.obtenerTodosTipoPregunta();
+        cbTipoPregunta.getItems().addAll(tipos);
+
+        List<Materia> materias= listasDAO.obtenerMateriasDocente(usuario.getUserId());
+        cbMateria.getItems().addAll(materias);
     }
 
-    private void configurarTablaPreguntasDisponibles() {
-        // Configuración de columnas y botones de acción
-        // ...
-    }
-
-    private void configurarTablaPreguntasSeleccionadas() {
-        // Configuración de columnas y botones para eliminar
-        // ...
-    }
-
-    private void cargarComboboxes() {
-        // Simulación de carga de datos
-        cbMateria.getItems().addAll("Matemáticas", "Ciencias", "Historia");
-        cbCategoria.getItems().addAll("Examen Parcial", "Examen Final", "Quiz");
-        cbTema.getItems().addAll("Álgebra", "Geometría", "Trigonometría");
-    }
-
-    @FXML
-    private void buscarPreguntas() {
-        String tipoPregunta = cbTipoPregunta.getValue();
-        String tema = cbTema.getValue();
-
-        if (tipoPregunta == null || tema == null) {
-            mostrarAlerta("Debe seleccionar un tipo de pregunta y un tema");
-            return;
-        }
-
-        // Simulación de búsqueda de preguntas
-        preguntasDisponibles.clear();
-        preguntasDisponibles.addAll(
-                new Pregunta(1, "¿Cuál es la capital de Francia?", "Selección Múltiple"),
-                new Pregunta(2, "¿2 + 2 = 4?", "Verdadero/Falso"),
-                new Pregunta(3, "¿Quién escribió Don Quijote?", "Respuesta Corta")
-        );
-    }
-
-    @FXML
-    private void agregarPregunta(Pregunta pregunta) {
-        try {
-            int peso = Integer.parseInt(txtPeso.getText());
-            if (peso <= 0) {
-                mostrarAlerta("El peso debe ser un número positivo");
-                return;
-            }
-
-            PreguntaExamen preguntaSel = new PreguntaExamen(
-                    pregunta.getId(),
-                    pregunta.getEnunciado(),
-                    pregunta.getTipo(),
-                    peso
-            );
-
-            preguntasSeleccionadas.add(preguntaSel);
-        } catch (NumberFormatException e) {
-            mostrarAlerta("El peso debe ser un número válido");
-        }
-    }
 
     @FXML
     private void eliminarPregunta(PreguntaExamen pregunta) {
@@ -116,34 +88,52 @@ public class FormularioExamenController {
     }
 
     @FXML
-    private void guardarExamen() {
-        // Validar campos
-        if (txtNombre.getText().isEmpty() || preguntasSeleccionadas.isEmpty()) {
-            mostrarAlerta("Debe completar el nombre del examen y agregar al menos una pregunta");
-            return;
+    private void guardarExamen() throws Exception {
+        try{
+            int idExamen= docenteDAO.crearExamen(0, txtNombre.getText(), txtDescripcion.getText(),
+                    Integer.parseInt(txtCantPreguntasExamen.getText()), Integer.parseInt(txtNotaMinima.getText()),
+                    Integer.parseInt(txtLimiteTiempo.getText()),
+                    dpFechaPresentacion.getValue(),cbMateria.getValue().getId(), cbCategoria.getValue().getId(),
+                    cbTema.getValue().getId(),cbTema.getValue().getId(),Integer.parseInt(txtCantPreguntasEstudiante.getText()));
+            JOptionPane.showMessageDialog(null, "El examen se agregó correctamente");
+            System.out.println(idExamen);
+            int cantPregSelec= preguntasSeleccionadas.size();
+            System.out.println(cantPregSelec);
+            for(PreguntaExamen pregunta:preguntasSeleccionadas){
+                System.out.println(pregunta.getId()+", "+pregunta.getEnunciado());
+                try {
+                    docenteDAO.agregarPreguntasExamen(idExamen, pregunta.getId(), pregunta.getPeso());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    mostrarAlerta("Error con pregunta ID " + pregunta.getId(), e.getMessage());
+                    return;
+                }
+            }
+            mostrarAlerta("Éxito", "Todas las preguntas fueron asignadas correctamente");
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
-        try {
-            oracleConnector.realizarConsulta("INSERT INTO EXAMEN(ID, NOMBRE, DESCRIPCION, CANTPREGUNTAS," +
-                    " NOTAMINIMA, LIMITETIEMPO, FECHAPRESENTACION,MATERIA_ID, CATEGORIA_ID, TEMA_ID, " +
-                    "TEMA_MATERIA_ID) VALUES ("+generarId()+", "+txtNombre.getText()+","+txtDescripcion+","
-                    +Integer.parseInt(txtNotaMinima.getText())+","
-                    +Integer.parseInt(txtLimiteTiempo.getText())+","+dpFechaPresentacion.getValue()+","
-                    +cbMateria.getValue()+","+cbCategoria.getValue()+","+cbTema.getValue()+");");
-
-            mostrarAlerta("Examen guardado exitosamente", Alert.AlertType.INFORMATION);
-            limpiarFormulario();
-        } catch (NumberFormatException e) {
-            mostrarAlerta("Los campos numéricos deben contener valores válidos");
-        } catch (Exception e) {
-            mostrarAlerta("Error al guardar el examen: " + e.getMessage());
-        }
     }
 
     @FXML
-    private void cancelar() {
+    private void cancelar() throws IOException {
         limpiarFormulario();
-        // Cerrar ventana o volver atrás
+        OracleConnector oracleConnector = new OracleConnector();
+        oracleConnector.connect();
+
+        ListasDAO listasDAO = new ListasDAO(oracleConnector);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pepeschoolback/views/ExamenView.fxml"));
+        loader.setController(new ExamenViewController(listasDAO));
+        Parent root = loader.load();
+
+        Stage stage= new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle("Pepe School");
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void limpiarFormulario() {
@@ -156,19 +146,98 @@ public class FormularioExamenController {
         preguntasSeleccionadas.clear();
     }
 
-    private void mostrarAlerta(String mensaje) {
-        mostrarAlerta(mensaje, Alert.AlertType.ERROR);
-    }
 
-    private void mostrarAlerta(String mensaje, Alert.AlertType tipo) {
-        Alert alert = new Alert(tipo);
-        alert.setTitle(tipo == Alert.AlertType.ERROR ? "Error" : "Información");
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+    @FXML
+    private void cargarTabla() throws SQLException {
+        colIdPregunta.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colEnunciado.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        colRespuesta.setCellValueFactory(new PropertyValueFactory<>("respuesta"));
+        colTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
 
-    private String generarId(){
-        return "";
+        List<Pregunta> preguntas= listasDAO.obtenerPreguntastemaytipo(cbTema.getValue().getId(), cbTipoPregunta.getValue().getId());
+        preguntasDisponibles.setAll(preguntas);
+        tblPreguntasDisponibles.setItems(preguntasDisponibles);
+    }
+
+
+    private void configurarColumnasSeleccionadas() {
+        colIdPreguntaSel.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colEnunciadoSel.setCellValueFactory(new PropertyValueFactory<>("enunciado"));
+        colRespuestaSel.setCellValueFactory(new PropertyValueFactory<>("respuesta"));
+        colPeso.setCellValueFactory(new PropertyValueFactory<>("peso"));
+
+        // Botón para eliminar preguntas seleccionadas
+        colEliminar.setCellFactory(param -> new TableCell<PreguntaExamen, Void>() {
+            private final Button btnEliminar = new Button("Eliminar");
+
+            {
+                btnEliminar.setOnAction(event -> {
+                    PreguntaExamen pregunta = getTableView().getItems().get(getIndex());
+                    preguntasSeleccionadas.remove(pregunta);
+                });
+            }
+        });
+    }
+
+    @FXML
+    private void agregarPregunta(ActionEvent event) {
+        Pregunta preguntaSeleccionada = tblPreguntasDisponibles.getSelectionModel().getSelectedItem();
+
+        if (preguntaSeleccionada == null) {
+            mostrarAlerta("Error", "Por favor seleccione una pregunta de la lista");
+            return;
+        }
+
+        String pesoTexto = txtPeso.getText().trim();
+        if (pesoTexto.isEmpty()) {
+            mostrarAlerta("Error", "Por favor ingrese un peso para la pregunta");
+            return;
+        }
+
+        try {
+            int peso = Integer.parseInt(pesoTexto);
+
+            if (peso <= 0) {
+                mostrarAlerta("Error", "El peso debe ser un número positivo");
+                return;
+            }
+
+            PreguntaExamen preguntaExamen = new PreguntaExamen(
+                    preguntaSeleccionada.getId(),
+                    preguntaSeleccionada.getDescripcion(),  // Asegúrate que esto coincida con tu clase Pregunta
+                    preguntaSeleccionada.getRespuesta(),
+                    peso
+            );
+
+            if (preguntasSeleccionadas.stream().anyMatch(p -> p.getId() == preguntaExamen.getId())) {
+                mostrarAlerta("Advertencia", "Esta pregunta ya fue agregada al examen");
+                return;
+            }
+
+            preguntasSeleccionadas.add(preguntaExamen);
+            tblPreguntasDisponibles.getSelectionModel().clearSelection();
+            txtPeso.clear();
+
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Error", "El peso debe ser un número válido");
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            cargarComboboxes();
+            configurarColumnasSeleccionadas();
+            tblPreguntasSeleccionadas.setItems(preguntasSeleccionadas);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

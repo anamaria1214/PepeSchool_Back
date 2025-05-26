@@ -2,13 +2,17 @@ package com.example.pepeschoolback.modelo.documentos;
 
 public class Pregunta {
     private int id;
-    private String enunciado;
-    private int tipo;
+    private String descripcion;
+    private String respuesta;
+    private Integer peso;
+    private String tipo;
 
-    public Pregunta(int id, String enunciado, int tipo) {
+    public Pregunta(int id, String descripcion, String respuesta, Integer peso, String tipo) {
         this.id = id;
-        this.enunciado = enunciado;
-        this.tipo = tipo;
+        this.descripcion = descripcion;
+        this.respuesta = respuesta;
+        this.peso=peso;
+        this.tipo=tipo;
     }
 
     public int getId() {
@@ -19,28 +23,35 @@ public class Pregunta {
         this.id = id;
     }
 
-    public String getEnunciado() {
-        return enunciado;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setEnunciado(String enunciado) {
-        this.enunciado = enunciado;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public int getTipo() {
+    public String getRespuesta() {
+        return respuesta;
+    }
+
+    public void setRespuesta(String respuesta) {
+        this.respuesta = respuesta;
+    }
+
+    public Integer getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Integer peso) {
+        this.peso = peso;
+    }
+
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(int tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    @Override
-    public String toString() {
-        return "Pregunta{" +
-                "id=" + id +
-                ", enunciado='" + enunciado + '\'' +
-                ", tipo=" + tipo +
-                '}';
     }
 }
