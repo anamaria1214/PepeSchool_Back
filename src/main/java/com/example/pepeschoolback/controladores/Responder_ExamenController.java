@@ -6,14 +6,12 @@ import com.example.pepeschoolback.config.OracleConnector;
 import com.example.pepeschoolback.config.UsuarioActivo;
 import com.example.pepeschoolback.modelo.documentos.Pregunta;
 import com.example.pepeschoolback.modelo.vo.OpcionRespuesta;
-import com.example.pepeschoolback.modelo.vo.Pareja;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldListCell;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,11 +30,15 @@ public class Responder_ExamenController {
 
     public void initialize() {
         OracleConnector oracleConnector = new OracleConnector();
+        oracleConnector.connect();
         ListasDAO listasDAO = new ListasDAO(oracleConnector);
         UsuarioActivo usuarioActivo = UsuarioActivo.getInstance();
         // Cargar preguntas desde backend (DAO que use PL/SQL)
         try {
             preguntas = listasDAO.obtenerPreguntasDelExamen(usuarioActivo.getIdExamen());
+            ResultSet rs = oracleConnector.realizarConsulta("SELECT nombre FROM EXAMEN WHERE ID = " + usuarioActivo.getIdExamen());
+            rs.next();
+            lblTituloExamen.setText("Examen: " + rs.getString("nombre"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -45,6 +47,7 @@ public class Responder_ExamenController {
 
     private List<OpcionRespuesta> obtenerOpciones(int pregunta_id) {
         OracleConnector oracleConnector = new OracleConnector();
+        oracleConnector.connect();
         ListasDAO listasDAO = new ListasDAO(oracleConnector);
         try {
             return listasDAO.obtenerOpcionesRespuesta(pregunta_id);
@@ -107,27 +110,41 @@ public class Responder_ExamenController {
     @FXML
     private void siguientePregunta() {
         guardarRespuestaActual();
+        OracleConnector oracleConnector = new OracleConnector();
+        oracleConnector.connect();
+        EstudianteDAO estudianteDAO = new EstudianteDAO(oracleConnector);
+        String respuesta = (String) respuestasEstudiante.get(indiceActual);
+        int peso = estudianteDAO.calificarPregunta(UsuarioActivo.getInstance().getUserId(), UsuarioActivo.getInstance().getIdExamen(),  preguntas.get(indiceActual).getId(), respuesta);
         if (indiceActual < preguntas.size() - 1) {
             indiceActual++;
             mostrarPregunta(indiceActual);
         }
+        else
+            new Alert(Alert.AlertType.INFORMATION, "No existen mas preguntas").show();
     }
 
     @FXML
     private void anteriorPregunta() {
         guardarRespuestaActual();
-        if (indiceActual > 0) {
+        // Si la respuesta de la pregunta anterior ya existe, no permitir retroceder
+        if (indiceActual > 0 && !respuestasEstudiante.containsKey(preguntas.get(indiceActual - 1).getId())) {
             indiceActual--;
             mostrarPregunta(indiceActual);
+        } else if (indiceActual > 0) {
+            new Alert(Alert.AlertType.WARNING, "No puedes regresar, ya respondiste la pregunta anterior.").show();
         }
     }
+
 
     @FXML
     private void enviarExamen() {
         guardarRespuestaActual();
         System.out.println(respuestasEstudiante);
-//        estudianteDAO.enviarRespuestas(idEstudiante, idExamen, respuestasEstudiante);
-//        mostrarDialogo("¡Examen enviado con éxito!");
+        OracleConnector oc = new OracleConnector();
+        oc.connect();
+        EstudianteDAO estudianteDAO = new EstudianteDAO(oc);
+        int resultado = estudianteDAO.calificarExamen(UsuarioActivo.getInstance().getUserId(), UsuarioActivo.getInstance().getIdExamen());
+        new Alert(Alert.AlertType.CONFIRMATION, "Felicidades, la nota de su examen es: " + resultado).show();
     }
 
     private void guardarRespuestaActual() {
@@ -152,7 +169,7 @@ public class Responder_ExamenController {
                         seleccionadas.add(cb.getText());
                     }
                 }
-                respuesta = seleccionadas; // Lista de Strings
+                respuesta = String.join(",", seleccionadas); // Lista de Strings
                 break;
 
             case "falso y verdadero":

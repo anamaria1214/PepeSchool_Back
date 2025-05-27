@@ -57,4 +57,15 @@ public class Examen {
     public void setMateria(String materia) {
         this.materia = materia;
     }
+
+    @Override
+    public String toString() {
+        return "Examen{" +
+                "nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", cantpreguntas=" + cantpreguntas +
+                ", fechaPresentacion=" + fechaPresentacion +
+                ", materia='" + materia + '\'' +
+                '}';
+    }
 }

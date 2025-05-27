@@ -213,16 +213,10 @@ public class ListasDAO {
     }
 
     public List<Pregunta> obtenerPreguntasDelExamen(int idExamen) throws SQLException {
-        ResultSet rs = oracleConnector.realizarConsulta(
-                "SELECT p.respuesta AS respuesta, p.peso AS peso, p.id AS preguntaId, p.descripcion AS enunciado, tp.nombre AS tipoPregunta" +
-                        "FROM examen e " +
-                        "JOIN detalleexamenpregunta d ON e.id = d.examen_id " +
-                        "JOIN pregunta p ON d.pregunta_id = p.id " +
-                        "JOIN tipoPregunta tp ON p.tipoPregunta_id = tp.id " +
-                        "WHERE e.id = " + idExamen
-        );
-
         List<Pregunta> preguntas = new ArrayList<>();
+        String sql = "SELECT p.respuesta AS respuesta, p.peso AS peso, p.id AS preguntaId, p.descripcion AS enunciado, tp.nombre AS tipoPregunta FROM examen e JOIN detalleexamenpregunta d ON e.id = d.examen_id JOIN pregunta p ON d.pregunta_id = p.id JOIN tipoPregunta tp ON p.tipoPregunta_id = tp.id WHERE e.id = " + idExamen;
+
+        ResultSet rs = oracleConnector.realizarConsulta(sql);
         while (rs.next()) {
             Pregunta pregunta = new Pregunta(
                     rs.getInt("PREGUNTAID"),
@@ -238,16 +232,87 @@ public class ListasDAO {
     }
 
     public List<OpcionRespuesta> obtenerOpcionesRespuesta(int pregunta_id) throws SQLException {
-        ResultSet rs = oracleConnector.realizarConsulta(
-                "SELECT o.descripcion AS texto, o.respuestacorrecta AS escorrecta FROM Opcion o JOIN Pregunta p ON o.pregunta_id = p.id WHERE p.id = " + pregunta_id
-        );
-
         List<OpcionRespuesta> opcionRespuestas = new ArrayList<>();
-        while (rs.next()) {
-            opcionRespuestas.add(new OpcionRespuesta(rs.getString("TEXTO"), rs.getString("ESCORRECTA")));
-        }
+        String sql = "SELECT o.descripcion AS texto, o.respuestacorrecta AS escorrecta FROM Opcion o JOIN Pregunta p ON o.pregunta_id = p.id WHERE p.id = " + pregunta_id;
 
+        ResultSet rs = oracleConnector.realizarConsulta(sql);
+        while (rs.next()) {
+            OpcionRespuesta opcionRespuesta = new OpcionRespuesta(
+                    rs.getString("TEXTO"),
+                    rs.getString("ESCORRECTA")
+            );
+            opcionRespuestas.add(opcionRespuesta);
+        }
         return opcionRespuestas;
     }
+
+    public List<Examen> obtenerExamenesEstudiantePendiente() throws SQLException {
+        List<Examen> examenes = new ArrayList<>();
+        String sql = "SELECT e.*, m.nombre AS nombre_materia FROM estudiante es JOIN grupo g ON es.idgrupo = g.id JOIN detallegrupomateria dgm ON dgm.grupo_id = g.id JOIN materia m ON dgm.materia_id = m.id JOIN examen e ON e.materia_id = m.id WHERE es.id = " + UsuarioActivo.getInstance().getUserId();
+
+        ResultSet rs = oracleConnector.realizarConsulta(sql);
+        while (rs.next()) {
+            Examen examen = new Examen(
+                    rs.getString("nombre"),
+                    rs.getString("descripcion"),
+                    rs.getInt("cantpreguntas"),
+                    rs.getDate("fechapresentacion"),
+                    rs.getString("nombre_materia")
+            );
+            examenes.add(examen);
+        }
+        return examenes;
+    }
+
+    public int obtenerIdPorNombreExamen(String nombreExamen) throws SQLException {
+        String sql = "SELECT id FROM examen WHERE nombre = ?";
+
+        try (Connection connection = oracleConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, nombreExamen);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            } else {
+                throw new SQLException("No se encontró el examen con el nombre: " + nombreExamen);
+            }
+        }
+    }
+
+
+//    public List<Examen> obtenerExamenesEstudiantePorMateria() throws SQLException {
+//        ResultSet rs = oracleConnector.realizarConsulta(
+//                "SELECT e.*, m.nombre AS nombre_materia FROM estudiante es " +
+//                        "JOIN grupo g ON es.idgrupo = g.id " +
+//                        "JOIN detallegrupomateria dgm ON dgm.grupo_id = g.id " +
+//                        "JOIN materia m ON dgm.materia_id = m.id "  +
+//                        "JOIN examen e ON e.materia_id = m.id " +
+//                        "WHERE es.id = " + UsuarioActivo.getInstance().getUserId() +
+//                        " GROUP BY e.materia_id"
+//
+//        );
+//
+//        List<Examen> examenes = new ArrayList<>();
+//
+//        while(rs.next()){
+//             Examen examen = new Examen(
+//                     rs.getString("nombre"),
+//                     rs.getString("descripcion"),
+//                     rs.getInt("cantpreguntas"),
+//                     rs.getDate("fechapresentacion"),
+//                     rs.getString("nombre_materia")
+//             );
+//             examenes.add(examen);
+//         }
+//
+//        //test
+//        ResultSet rsTest = oracleConnector.realizarConsulta("SELECT * FROM estudiante");
+//        while(rsTest.next()){
+//            System.out.println("ID: " + rsTest.getInt("id") + ", Nombre: " + rsTest.getString("nombre"));
+//        }
+//        //test
+//
+//        return examenes;
+//    }
 
 }
